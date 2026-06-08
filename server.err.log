@@ -251,3 +251,534 @@ Traceback (most recent call last):
     ~~~~~~~~~~~~~~~~~~^^^
 ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
 ----------------------------------------
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /index.html HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image2.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image3.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image4.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image6.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image7.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image8.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image9.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image10.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image11.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image12.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image13.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image14.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image15.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image16.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image17.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image18.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image19.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image20.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image21.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image22.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image23.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image24.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image25.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image26.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image27.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image28.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image29.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image30.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/image31.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/ppt-slide21-1.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/ppt-slide20-1.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/ppt-slide21-2.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/ppt-slide22-2.png HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:49] "GET /ppt-media/computer-control-demo.webm HTTP/1.1" 200 -
+192.168.9.155 - - [08/Jun/2026 15:04:50] code 404, message File not found
+192.168.9.155 - - [08/Jun/2026 15:04:50] "GET /favicon.ico HTTP/1.1" 404 -
+----------------------------------------
+Exception occurred during processing of request from ('192.168.9.155', 58361)
+Traceback (most recent call last):
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 1422, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             directory=args.directory)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 732, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 739, in do_GET
+    self.copyfile(f, self.wfile)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 942, in copyfile
+    shutil.copyfileobj(source, outputfile)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 257, in copyfileobj
+    fdst_write(buf)
+    ~~~~~~~~~~^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /index.html HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image2.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image3.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image6.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image4.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image7.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image8.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image9.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image10.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image11.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image12.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image13.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image14.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image15.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image16.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image17.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image18.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image19.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image20.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image21.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image23.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image22.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image24.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image25.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image26.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image27.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image28.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image29.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image30.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/image31.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/ppt-slide20-1.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/ppt-slide21-1.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/ppt-slide21-2.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/ppt-slide22-2.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 16:18:12] "GET /ppt-media/computer-control-demo.webm HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('192.168.8.150', 58322)
+Traceback (most recent call last):
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 1422, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             directory=args.directory)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 732, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 464, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socket.py", line 725, in readinto
+    return self._sock.recv_into(b)
+           ~~~~~~~~~~~~~~~~~~~~^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /index.html HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image2.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image3.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image4.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image6.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image7.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image8.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image9.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image10.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image11.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image12.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image15.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image13.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image16.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image14.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image17.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image18.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image19.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image20.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image22.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image21.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image23.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image24.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image25.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image27.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image28.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image26.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image29.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image30.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/image31.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/ppt-slide20-1.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/ppt-slide21-1.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/ppt-slide21-2.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/ppt-slide22-2.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/new-image40.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/new-image41.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/new-image42.jpeg HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/new-image43.jpeg HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/new-image45.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/new-image44.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/new-image46.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/new-image47.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/new-image48.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/new-image49.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/new-image50.png HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 17:59:05] "GET /ppt-media/computer-control-demo.webm HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /index.html HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('192.168.8.150', 58729)
+Traceback (most recent call last):
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 1422, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             directory=args.directory)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 732, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 739, in do_GET
+    self.copyfile(f, self.wfile)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 942, in copyfile
+    shutil.copyfileobj(source, outputfile)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 257, in copyfileobj
+    fdst_write(buf)
+    ~~~~~~~~~~^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image2.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image3.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image4.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image6.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image7.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image8.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image9.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image10.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image11.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image12.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image13.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image14.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image15.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image16.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image17.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image18.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image19.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image20.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image22.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image21.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image23.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image24.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image25.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image26.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image27.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image28.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image29.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image30.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/image31.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/ppt-slide20-1.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/ppt-slide21-1.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/ppt-slide21-2.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/ppt-slide22-2.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/new-image40.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/new-image41.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/new-image42.jpeg HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/new-image43.jpeg HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/new-image44.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/new-image45.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/new-image46.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/new-image47.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/new-image48.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/new-image49.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/new-image50.png HTTP/1.1" 200 -
+192.168.8.150 - - [08/Jun/2026 18:00:24] "GET /ppt-media/computer-control-demo.webm HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 18:01:20] "GET /index.html HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 50271)
+Traceback (most recent call last):
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 1422, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             directory=args.directory)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 732, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 739, in do_GET
+    self.copyfile(f, self.wfile)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 942, in copyfile
+    shutil.copyfileobj(source, outputfile)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 257, in copyfileobj
+    fdst_write(buf)
+    ~~~~~~~~~~^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+127.0.0.1 - - [08/Jun/2026 18:01:20] "GET /ppt-media/new-image40.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:01:20] "GET /ppt-media/new-image41.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:01:20] "GET /ppt-media/new-image43.jpeg HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:01:20] "GET /ppt-media/new-image45.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:01:20] "GET /ppt-media/new-image44.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:01:20] "GET /ppt-media/new-image42.jpeg HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:01:20] "GET /ppt-media/new-image46.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:01:20] "GET /ppt-media/new-image47.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:01:20] "GET /ppt-media/new-image48.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:01:20] "GET /ppt-media/new-image49.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:01:20] "GET /ppt-media/new-image50.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:01:20] "GET /ppt-media/computer-control-demo.webm HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 56918)
+Traceback (most recent call last):
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 1422, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             directory=args.directory)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 732, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 739, in do_GET
+    self.copyfile(f, self.wfile)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 942, in copyfile
+    shutil.copyfileobj(source, outputfile)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 257, in copyfileobj
+    fdst_write(buf)
+    ~~~~~~~~~~^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+127.0.0.1 - - [08/Jun/2026 18:03:30] "GET /index.html HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 18:03:30] "GET /ppt-media/new-image40.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:03:30] "GET /ppt-media/new-image41.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:03:30] "GET /ppt-media/new-image42.jpeg HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:03:30] "GET /ppt-media/new-image43.jpeg HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:03:30] "GET /ppt-media/new-image44.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:03:30] "GET /ppt-media/new-image45.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:03:30] "GET /ppt-media/new-image46.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:03:30] "GET /ppt-media/new-image47.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:03:30] "GET /ppt-media/new-image49.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:03:30] "GET /ppt-media/new-image48.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:03:30] "GET /ppt-media/new-image50.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:03:30] "GET /ppt-media/computer-control-demo.webm HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 64162)
+Traceback (most recent call last):
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 1422, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             directory=args.directory)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 732, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 739, in do_GET
+    self.copyfile(f, self.wfile)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 942, in copyfile
+    shutil.copyfileobj(source, outputfile)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 257, in copyfileobj
+    fdst_write(buf)
+    ~~~~~~~~~~^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+127.0.0.1 - - [08/Jun/2026 18:04:02] "GET /index.html HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 18:04:02] "GET /ppt-media/computer-control-demo.webm HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 63575)
+Traceback (most recent call last):
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 1422, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             directory=args.directory)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 732, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 739, in do_GET
+    self.copyfile(f, self.wfile)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 942, in copyfile
+    shutil.copyfileobj(source, outputfile)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 257, in copyfileobj
+    fdst_write(buf)
+    ~~~~~~~~~~^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+127.0.0.1 - - [08/Jun/2026 18:08:50] "GET /index.html HTTP/1.1" 200 -
+127.0.0.1 - - [08/Jun/2026 18:08:50] "GET /ppt-media/new-image40.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:08:50] "GET /ppt-media/new-image41.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:08:50] "GET /ppt-media/new-image42.jpeg HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:08:50] "GET /ppt-media/new-image43.jpeg HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:08:50] "GET /ppt-media/new-image44.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:08:50] "GET /ppt-media/new-image45.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:08:50] "GET /ppt-media/new-image46.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:08:50] "GET /ppt-media/new-image49.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:08:50] "GET /ppt-media/new-image47.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:08:50] "GET /ppt-media/new-image48.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:08:50] "GET /ppt-media/new-image50.png HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:08:51] "GET /ppt-media/computer-control-demo.webm HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 59702)
+Traceback (most recent call last):
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 1422, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             directory=args.directory)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 732, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 739, in do_GET
+    self.copyfile(f, self.wfile)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 942, in copyfile
+    shutil.copyfileobj(source, outputfile)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 257, in copyfileobj
+    fdst_write(buf)
+    ~~~~~~~~~~^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+127.0.0.1 - - [08/Jun/2026 18:10:10] "GET /index.html HTTP/1.1" 304 -
+127.0.0.1 - - [08/Jun/2026 18:10:10] "GET /ppt-media/computer-control-demo.webm HTTP/1.1" 200 -
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 56677)
+Traceback (most recent call last):
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 1422, in finish_request
+    self.RequestHandlerClass(request, client_address, self,
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                             directory=args.directory)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 732, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 766, in __init__
+    self.handle()
+    ~~~~~~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 496, in handle
+    self.handle_one_request()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 484, in handle_one_request
+    method()
+    ~~~~~~^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 739, in do_GET
+    self.copyfile(f, self.wfile)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\http\server.py", line 942, in copyfile
+    shutil.copyfileobj(source, outputfile)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\shutil.py", line 257, in copyfileobj
+    fdst_write(buf)
+    ~~~~~~~~~~^^^^^
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python314\Lib\socketserver.py", line 845, in write
+    self._sock.sendall(b)
+    ~~~~~~~~~~~~~~~~~~^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
