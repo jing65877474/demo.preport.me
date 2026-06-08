@@ -1,0 +1,1341 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>设计师如何使用 Codex 提升效率 · 完整网页稿</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f5f5eb;
+    --wash:#efefe5;
+    --wash-2:#fafaf5;
+    --ink:#14140f;
+    --text:#30302a;
+    --muted:#6e6e64;
+    --line:#d2d2c8;
+    --accent:#beff50;
+    --accent-soft:#eef8d7;
+    --white:#ffffff;
+    --shadow:none;
+    --shadow-soft:none;
+    --sans:"Lexend","Noto Sans SC","Microsoft YaHei UI",system-ui,sans-serif;
+    --mono:"JetBrains Mono","Cascadia Code",monospace;
+    --radius-main:26px;
+    --radius-chip:8px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--paper);color:var(--ink);font-family:var(--sans);letter-spacing:0}
+  body:before{
+    content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;
+    background:
+      linear-gradient(90deg,rgba(20,20,15,.05) 1px,transparent 1px) 0 0/74px 74px,
+      linear-gradient(0deg,rgba(20,20,15,.04) 1px,transparent 1px) 0 0/74px 74px,
+      radial-gradient(circle at 14% 9%,rgba(255,255,255,.76),transparent 24%),
+      radial-gradient(circle at 85% 6%,rgba(190,255,80,.16),transparent 24%);
+  }
+  #deck{height:100vh;display:flex;transition:transform .78s cubic-bezier(.77,0,.175,1);will-change:transform}
+  .slide{position:relative;flex:0 0 100vw;width:100vw;height:100vh;padding:4.2vh 4.2vw 4.4vh;overflow:hidden}
+  .slide.soft{background:linear-gradient(180deg,var(--paper) 0%,var(--wash-2) 100%)}
+  .slide.band{background:linear-gradient(180deg,var(--wash) 0 46%,var(--paper) 46% 100%)}
+  .slide.chapter{background:var(--ink);color:var(--white)}
+  .slide.chapter .chrome,.slide.chapter p,.slide.chapter .eyebrow,.slide.chapter .chip{color:rgba(255,255,255,.82)}
+  .chrome{height:40px;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid rgba(20,20,15,.12);font-family:var(--mono);font-size:12px;position:relative;z-index:4}
+  .chrome,.hero,.section-shell,.chapter-body,.closing-shell,.partner-row{max-width:1600px;margin-left:auto;margin-right:auto}
+  .brand{font-weight:700}
+  .nav{display:flex;gap:34px;white-space:nowrap}
+  .badge{background:var(--accent);color:var(--ink);border:1px solid var(--ink);border-radius:var(--radius-main);padding:10px 16px;margin-top:-10px}
+  .page-no{color:var(--muted)}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+  .underline{position:relative;display:inline-block;z-index:1}
+  .underline:after{content:"";position:absolute;left:-.08em;right:-.08em;bottom:.02em;height:.16em;background:var(--accent);z-index:-1;transform:rotate(-2deg);clip-path:polygon(0 52%,100% 18%,96% 78%,2% 100%)}
+  h1,h2,h3,h4,p,figure{margin:0}
+  h1{font-size:clamp(48px,5.7vw,92px);line-height:.98;font-weight:800;max-width:720px;letter-spacing:0}
+  h2{font-size:clamp(40px,4.7vw,78px);line-height:1.02;font-weight:800;letter-spacing:0}
+  h3{font-size:22px;line-height:1.05}
+  h4{font-size:16px;line-height:1.3}
+  p{color:var(--text);font-size:17px;line-height:1.72}
+  .chip{font-family:var(--mono);font-size:11px;color:var(--muted)}
+  .brush{position:absolute;background:rgba(190,255,80,.22);opacity:1;clip-path:polygon(8% 11%,76% 0,100% 24%,89% 78%,38% 100%,0 72%)}
+  .section-shell{height:calc(100vh - 8.6vh - 40px);display:grid;grid-template-rows:auto minmax(0,1fr);gap:3.5vh;position:relative;z-index:2}
+  .head-split{width:min(100%,1360px);margin-inline:auto;display:grid;grid-template-columns:.95fr 1.05fr;gap:3.2vw;align-items:end}
+  .head-copy{display:grid;gap:14px;justify-items:start}
+  .head-side{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end}
+  .head-side p{max-width:48ch}
+  .section-cta{border:1px solid var(--ink);background:transparent;color:var(--ink);border-radius:var(--radius-main);padding:12px 16px;font-weight:600;white-space:nowrap}
+  .hero{height:calc(100vh - 8.6vh - 40px);display:grid;grid-template-columns:.82fr 1.18fr;gap:3vw;align-items:center;position:relative;z-index:2}
+  .hero-copy{display:flex;flex-direction:column;gap:18px}
+  .search{width:min(600px,100%);height:70px;display:grid;grid-template-columns:minmax(0,1fr) 120px;border:1px solid var(--ink);background:var(--line);border-radius:var(--radius-main);overflow:hidden;box-shadow:var(--shadow);color:inherit;text-decoration:none;cursor:pointer}
+  .search div{background:var(--white);padding:0 18px}
+  .search .search-url{display:grid;place-items:center;text-align:center}
+  .search b{display:block;font-size:12px}
+  .search span{display:block;font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .search .search-url span{font-size:18px;font-weight:800;color:var(--ink);max-width:100%}
+  .search-open,.mini-btn,.ghost-btn{border:0;border-radius:6px;font-weight:800;white-space:nowrap}
+  .search .search-open{display:grid;place-items:center;width:100%;height:100%;background:var(--accent);color:var(--ink);padding:0 24px;border-left:1px solid var(--ink);border-radius:0;font-size:13px;line-height:1}
+  .mini-btn{background:var(--accent);color:var(--ink);padding:12px 18px;border:1px solid var(--ink)}
+  a.mini-btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
+  .ghost-btn{background:rgba(255,255,255,.82);color:var(--ink);padding:11px 16px;border:1px solid var(--ink)}
+  .hero-art{position:relative;height:69vh;min-height:500px}
+  .hero-art .brush{inset:3% 0 auto 8%;height:74%;width:90%}
+  .shot{position:absolute;overflow:hidden;background:var(--white);border:1px solid var(--ink);border-radius:var(--radius-main);box-shadow:var(--shadow);transition:transform .35s ease}
+  .shot img{width:100%;height:100%;object-fit:cover;display:block}
+  .shot:hover{transform:translateY(-8px)}
+  .shot.main{left:2%;top:6%;width:82%;height:50%}
+  .shot.crop-a{right:1%;top:30%;width:34%;height:42%}
+  .shot.crop-b{left:17%;bottom:2%;width:56%;height:33%}
+  .partner-row{position:absolute;left:6.4vw;right:6.4vw;bottom:3.4vh;display:grid;grid-template-columns:repeat(4,1fr);text-align:center;color:var(--muted);font-size:20px;font-weight:800;z-index:3}
+  .activity-grid{display:grid;grid-template-columns:1fr;grid-auto-rows:minmax(68px,1fr);gap:12px}
+  .activity{border:1px solid var(--line);background:rgba(255,255,255,.94);border-radius:var(--radius-main);padding:14px 16px;display:grid;grid-template-columns:42px 1fr;gap:12px;align-items:center;box-shadow:var(--shadow-soft);transition:transform .25s ease,border-color .25s ease,background .25s ease}
+  .activity:hover,.activity.active{transform:translateY(-4px);border-color:var(--ink);background:#fff}
+  .icon{width:42px;height:42px;border-radius:var(--radius-chip);background:var(--accent-soft);color:var(--ink);display:grid;place-items:center;font-family:var(--mono);font-weight:800}
+  .activity small{display:block;margin-top:5px;color:var(--muted);font-size:12px}
+  .dual-stage{display:grid;grid-template-columns:.62fr 1.38fr;gap:2.2vw;min-height:0}
+  .caption-strip{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:var(--radius-main);padding:14px 18px}
+  .hero-copy>p,.agenda-head>p,.head-side>p,.package-copy>p,.caption-strip{display:none}
+  .head-side{grid-template-columns:1fr;justify-items:end}
+  .media-frame,.panel-card,.gallery-card,.feature-card,.tour-card,.note-card,.quote-card,.code-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-main);box-shadow:var(--shadow);overflow:hidden}
+  .media-frame img,.gallery-card img,.tour-img img,.stack-img img{width:100%;height:100%;display:block;background:var(--white);transform:scale(var(--img-zoom,1));transform-origin:var(--img-origin,center center)}
+  .media-frame.contain img,.gallery-card.contain img,.tour-img.contain img,.stack-img.contain img{object-fit:var(--img-fit,contain);object-position:var(--img-position,center center)}
+  .media-frame.cover img,.gallery-card.cover img,.tour-img.cover img,.stack-img.cover img{object-fit:cover}
+  .media-frame.contain,.gallery-card.contain,.tour-img.contain,.stack-img.contain{--img-fit:cover;--img-zoom:1.08}
+  img[src$="image5.png"],img[src$="image11.png"],img[src$="image13.png"],img[src$="image16.png"],img[src$="image19.png"]{--img-zoom:1.22}
+  img[src$="image23.png"],img[src$="image24.png"],img[src$="image25.png"],img[src$="image26.png"],img[src$="image30.png"]{--img-zoom:1.18;--img-position:left top;--img-origin:left top}
+  img[src$="image31.png"]{--img-fit:contain;--img-zoom:1.02}
+  .shot img{--img-zoom:1}
+  .shot img,.media-frame img,.gallery-card img,.tour-img img,.stack-img img{cursor:zoom-in}
+  .media-frame{height:100%}
+  .media-frame.tall{max-height:52vh}
+  .package-head{width:min(100%,1360px);margin-inline:auto;display:grid;grid-template-columns:.95fr 1.05fr;gap:3.2vw;align-items:end;padding-top:1vh}
+  .package-side{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end}
+  .package-copy{display:grid;gap:18px;justify-items:start}
+  .tabs{display:flex;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--muted);background:var(--line);padding:8px;border-radius:var(--radius-main);width:max-content}
+  .tabs span{padding:8px 14px;border-radius:var(--radius-main)}
+  .tabs span:first-child{color:var(--white);background:var(--ink);border-bottom:0;padding-bottom:8px}
+  .package-row{display:grid;grid-template-columns:1.42fr .58fr;gap:28px;align-items:start;min-height:0}
+  .media-stack{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;align-items:start}
+  .tour-card{padding:22px;display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;gap:16px}
+  .tour-card.accent{background:var(--accent-soft);border-color:var(--ink)}
+  .tour-meta{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+  .tour-img{height:33vh;max-height:330px;min-height:180px;border:1px solid var(--line);border-radius:var(--radius-main);overflow:hidden;background:var(--white)}
+  .tour-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:12px;font-size:13px;color:var(--text)}
+  .tour-foot .tour-url{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--mono);font-size:13px;font-weight:700}
+  .compare-note{display:grid;gap:12px}
+  .note-card{padding:22px 24px;box-shadow:var(--shadow-soft)}
+  .note-card h3{display:flex;justify-content:space-between;gap:12px;font-size:20px}
+  .note-card p{margin-top:12px;font-size:16px;line-height:1.72}
+  .gallery-shell{display:grid;grid-template-columns:1.14fr .86fr;gap:28px;min-height:0}
+  .gallery-main{display:grid;grid-template-rows:auto minmax(0,1fr);gap:14px}
+  .gallery-main .gallery-card{height:100%}
+  .gallery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .gallery-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .gallery-card{position:relative;height:100%;min-height:0}
+  .gallery-card img{object-fit:contain}
+  .gallery-card .cap{position:absolute;left:12px;bottom:12px;background:rgba(255,255,255,.96);padding:8px 10px;border-radius:var(--radius-chip);font-family:var(--mono);font-size:10px;color:var(--ink);border:1px solid var(--line)}
+  .gallery-card.hero{display:block;max-width:none;margin:0;min-height:48vh}
+  .gallery-card.hero img{width:100%;height:100%}
+  .gallery-card.big{min-height:34vh}
+  .image-dominant .section-shell{gap:2.1vh}
+  .image-dominant .head-split{grid-template-columns:.95fr 1.05fr;align-items:start}
+  .image-dominant .gallery-shell{grid-template-columns:1.28fr .72fr;gap:24px}
+  .image-dominant .gallery-main{grid-template-rows:auto minmax(0,1fr);gap:12px}
+  .image-dominant .gallery-main .note-card{padding:14px 16px}
+  .image-dominant .gallery-main .gallery-card{min-height:38vh}
+  .image-dominant .gallery-grid.three{grid-template-columns:1.15fr 1.15fr .7fr}
+  .image-dominant .gallery-grid.three .gallery-card{min-height:43vh}
+  .image-dominant .gallery-grid.three .gallery-card:last-child{min-height:28vh}
+  .image-dominant .feature-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+  .image-dominant .feature-card{padding:18px;gap:12px}
+  .image-dominant .feature-card .stack-img.small{height:24vh;max-height:180px}
+  .interface-shell{display:grid;grid-template-columns:1.12fr 1.12fr 1fr 1fr;grid-template-rows:minmax(170px,.42fr) minmax(230px,.58fr);gap:22px 24px;min-height:0}
+  .interface-main{grid-column:1 / 3;grid-row:1 / 3;display:grid;grid-template-rows:auto minmax(0,1fr);gap:14px;min-height:0}
+  .interface-side{display:contents}
+  .interface-side-top{grid-column:3 / 5;grid-row:1;display:grid;grid-template-rows:auto minmax(0,1fr);gap:14px;min-height:0}
+  .interface-side-bottom{display:contents}
+  .interface-side-bottom>div{display:grid;grid-template-rows:auto minmax(0,1fr);gap:14px;min-height:0}
+  .interface-side-bottom>div:first-child{grid-column:3;grid-row:2}
+  .interface-side-bottom>div:last-child{grid-column:4;grid-row:2}
+  .interface-main .gallery-card,.interface-side-top .gallery-card,.interface-side-bottom .gallery-card{height:100%;min-height:0}
+  .interface-main .gallery-card.hero{min-height:0}
+  .interface-label{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--ink)}
+  .interface-label .icon{width:34px;height:34px}
+  .panel-card{padding:18px 20px}
+  .stacked{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .stack-img{height:100%;min-height:0;border:1px solid var(--line);border-radius:var(--radius-main);overflow:hidden;background:var(--white)}
+  .stack-img.wide{height:28vh;max-height:220px}
+  .stack-img.mid{height:24vh;max-height:180px}
+  .stack-img.small{height:18vh;max-height:138px}
+  .feature-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+  .feature-card{padding:16px;display:grid;grid-template-rows:auto auto auto;gap:10px;box-shadow:var(--shadow-soft)}
+  .feature-card .icon{width:36px;height:36px}
+  .code-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:20px}
+  .code-card{padding:26px 30px;display:grid;gap:18px}
+  .proxy-layout,.port-layout{display:grid;grid-template-rows:auto auto;gap:22px;min-height:0}
+  .proxy-top,.port-top{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}
+  .proxy-panel,.port-panel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-main);overflow:hidden}
+  .proxy-panel{display:grid;grid-template-rows:minmax(0,1fr)}
+  .proxy-visual,.port-visual{padding:14px}
+  .proxy-visual .stack-img{height:30vh;max-height:280px;min-height:220px;border-radius:22px}
+  .port-visual{height:31vh;max-height:290px;min-height:220px;border-radius:22px}
+  .proxy-info{padding:22px 26px;display:grid;gap:12px}
+  .proxy-info.code{padding-top:18px}
+  .proxy-info p,.proxy-bar p,.port-bar p{font-size:16px;line-height:1.7}
+  .proxy-bar,.port-bar{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-main);padding:24px 28px}
+  .proxy-bar{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.92fr);gap:24px;align-items:start}
+  .proxy-bar .proxy-note{display:grid;gap:12px}
+  .port-top .tour-card{padding:16px}
+  .port-top .tour-img{height:31vh;max-height:290px;min-height:220px}
+  .port-bar{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);gap:24px;align-items:start}
+  .port-bar .proxy-note{display:grid;gap:12px}
+  pre{margin:0;font-family:var(--mono);font-size:14px;line-height:1.85;white-space:pre-wrap;color:var(--ink)}
+  .quote-shell{display:grid;grid-template-columns:1.14fr .86fr;gap:18px}
+  .quote-card{padding:24px 26px;display:grid;gap:14px;background:var(--wash-2)}
+  .quote-card strong{font-size:22px}
+  .quote-card.dark{background:var(--ink);border-color:var(--ink)}
+  .quote-card.dark strong,.quote-card.dark p{color:var(--white)}
+  .quote-card.dark p{opacity:.82}
+  .practice-layout{display:grid;grid-template-columns:1.08fr .92fr;gap:24px;align-items:stretch;min-height:0}
+  .skill-table-card{background:var(--white);border:1px solid var(--ink);border-radius:var(--radius-main);overflow:hidden;display:grid;grid-template-rows:auto minmax(0,1fr)}
+  .skill-table-head{padding:20px 22px;border-bottom:1px solid var(--line);display:grid;gap:6px}
+  .skill-table-head p{font-size:14px;line-height:1.45;color:var(--muted)}
+  .skill-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:11px}
+  .skill-table th,.skill-table td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  .skill-table th{font-size:10px;text-transform:uppercase;color:var(--muted);letter-spacing:.08em;background:var(--wash-2)}
+  .skill-table tr.is-key td{background:var(--accent-soft);box-shadow:inset 0 0 0 2px var(--accent)}
+  .practice-side{display:grid;grid-template-rows:auto minmax(0,1fr);gap:18px}
+  .practice-note{background:var(--accent);border:1px solid var(--ink);border-radius:var(--radius-main);padding:22px 24px}
+  .practice-note h3{margin-bottom:10px}
+  .practice-note p{font-size:16px;line-height:1.65}
+  .practice-note code{font-family:var(--mono);font-size:15px;line-height:1.7;word-break:break-all}
+  .practice-shot{background:var(--ink);border:1px solid var(--ink);border-radius:var(--radius-main);padding:18px;display:grid;grid-template-rows:auto minmax(0,1fr);gap:14px;min-height:0}
+  .practice-shot h3,.practice-shot .tour-meta{color:var(--white)}
+  .practice-shot .tour-img{height:100%;max-height:none;min-height:0}
+  .practice-shot .tour-img img{--img-fit:contain;--img-zoom:1;--img-position:center center;--img-origin:center center}
+  .operate-layout{display:grid;grid-template-columns:.92fr 1.08fr;gap:24px;align-items:stretch;min-height:0}
+  .operate-layout .tour-card,.main-skill-layout .tour-card{height:100%;min-height:0;overflow:hidden}
+  .operate-layout .tour-card.dark{background:var(--ink);border-color:var(--ink)}
+  .operate-layout .tour-card.dark h3,.operate-layout .tour-card.dark p,.operate-layout .tour-card.dark .tour-meta{color:var(--white)}
+  .operate-layout .tour-img{height:100%;max-height:none;min-height:0}
+  .operate-layout .tour-img img{--img-fit:contain;--img-zoom:1;--img-position:center center;--img-origin:center center}
+  .operate-layout .tour-img video{width:100%;height:100%;display:block;object-fit:contain;background:var(--white)}
+  .main-skill-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;align-items:stretch;min-height:0}
+  .main-skill-layout .tour-card:first-child{background:var(--accent);border-color:var(--ink)}
+  .main-skill-layout .tour-img{height:100%;max-height:none;min-height:0}
+  .main-skill-layout img[src$="ppt-slide21-1.png"]{--img-fit:contain;--img-zoom:1;--img-position:center center;--img-origin:center center}
+  .main-skill-layout img[src$="ppt-slide21-2.png"]{--img-fit:contain;--img-zoom:1;--img-position:center center;--img-origin:center center}
+  .main-skill-result{display:grid;grid-template-columns:.88fr 1.12fr;gap:24px;align-items:stretch;min-height:0}
+  .main-skill-result .metric-card{background:var(--accent);border:1px solid var(--ink);border-radius:var(--radius-main);padding:26px 28px;display:grid;align-content:start;gap:18px}
+  .main-skill-result .metric-card strong{font-size:54px;line-height:1;font-weight:800}
+  .main-skill-result .metric-card p{font-size:18px;line-height:1.62}
+  .result-list{display:grid;gap:12px;font-family:var(--mono);font-size:13px}
+  .result-list span{display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(20,20,15,.28);padding-top:12px}
+  .result-preview{background:var(--white);border:1px solid var(--ink);border-radius:var(--radius-main);padding:18px;display:grid;grid-template-rows:auto minmax(0,1fr);gap:14px;min-height:0}
+  .result-preview .tour-img{height:100%;max-height:none;min-height:0}
+  .result-preview img{--img-fit:contain;--img-zoom:1;--img-position:center center;--img-origin:center center}
+  .strategy-media{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:center;justify-items:center;min-height:0}
+  .strategy-media .stack-img{width:100%;height:min(54vh,560px);max-height:none}
+  .strategy-media img[src$="image23.png"],.strategy-media img[src$="image24.png"]{--img-fit:contain;--img-zoom:1.04;--img-position:center center;--img-origin:center center}
+  .toggle-layout{display:grid;justify-items:center;align-content:start}
+  .toggle-layout .media-frame{width:min(100%,1320px);margin-inline:auto}
+  .toggle-layout .media-frame.tall{max-height:58vh}
+  .quota-layout{display:grid;grid-template-columns:1.12fr .88fr;gap:28px;align-items:center}
+  .quota-layout .media-frame.tall{max-height:56vh}
+  .quota-copy{display:grid;gap:20px;align-content:center;padding:12px 6px 12px 20px}
+  .quota-copy strong{font-size:44px;line-height:1.05;color:var(--ink);font-weight:800}
+  .quota-copy p{font-size:28px;line-height:1.5;color:var(--ink);max-width:18ch}
+  .settings-layout{gap:24px}
+  .settings-layout .tour-card{padding:20px 22px 18px}
+  .settings-layout .tour-img{height:40vh;max-height:420px;min-height:280px}
+  .access-layout{gap:24px}
+  .access-layout .tour-card{padding:16px 18px}
+  .access-layout .tour-img{height:38vh;max-height:390px;min-height:260px}
+  .chapter-body{height:calc(100vh - 9.3vh - 40px);display:grid;grid-template-columns:.9fr 1.1fr;gap:4vw;align-items:center}
+  .chapter-copy{display:grid;gap:18px}
+  .chapter-copy h1{color:white}
+  .chapter-copy p{color:rgba(255,255,255,.82);max-width:42ch}
+  .chapter-board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .chapter-stat{padding:22px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);border-radius:var(--radius-main)}
+  .chapter-stat b{display:block;font-size:42px;line-height:1}
+  .chapter-opener{background:var(--paper);color:var(--ink)}
+  .chapter-opener:before{opacity:.22}
+  .opener-shell{height:calc(100vh - 8.6vh - 40px);max-width:1600px;margin:0 auto;display:grid;grid-template-columns:1fr;place-items:center;text-align:center;position:relative;z-index:2}
+  .opener-copy{display:grid;gap:22px;align-content:center;justify-items:center}
+  .opener-kicker{font-family:var(--mono);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .opener-copy h1{font-size:clamp(68px,8vw,132px);line-height:.86;font-weight:800;max-width:980px}
+  .opener-copy p{font-size:20px;line-height:1.55;max-width:42ch;color:var(--text)}
+  .opener-mark{width:max-content;background:var(--accent);border:1px solid var(--ink);border-radius:999px;padding:12px 18px;font-family:var(--mono);font-weight:800}
+  .closing-shell{height:calc(100vh - 9.3vh - 40px);display:grid;grid-template-columns:1.02fr .98fr;gap:3vw;align-items:center}
+  .closing-call{display:grid;gap:18px}
+  .slide[data-layout="S10"] .closing-call{gap:14px}
+  .slide:after{content:"";position:absolute;inset:auto 4.2vw 3.2vh 4.2vw;height:1px;background:rgba(20,20,15,.1);pointer-events:none}
+  .slide:nth-child(4n+2){background:linear-gradient(90deg,var(--paper) 0 62%,var(--wash-2) 62% 100%)}
+  .slide:nth-child(4n+3){background:linear-gradient(180deg,var(--wash-2) 0 34%,var(--paper) 34% 100%)}
+  .slide:nth-child(4n+4){background:linear-gradient(135deg,var(--paper) 0 48%,var(--wash) 48% 100%)}
+  .slide.band{background:linear-gradient(180deg,var(--wash) 0 42%,var(--paper) 42% 100%)}
+  .slide[aria-label="封面"] .hero{grid-template-columns:1.05fr .95fr;gap:4vw}
+  .slide[aria-label="封面"] h1{font-size:clamp(54px,6.8vw,112px);line-height:.9;max-width:820px}
+  .slide[aria-label="封面"] .search{margin-top:18px}
+  .slide[aria-label="封面"] .hero-art{height:73vh}
+  .slide[aria-label="封面"] .shot.main{left:0;top:2%;width:78%;height:56%;border-color:var(--ink)}
+  .slide[aria-label="封面"] .shot.crop-a{right:2%;top:22%;width:39%;height:47%;background:var(--accent-soft)}
+  .slide[aria-label="封面"] .shot.crop-b{left:8%;bottom:0;width:68%;height:33%}
+  .slide[aria-label="下载与安装"] .dual-stage{grid-template-columns:.46fr 1.54fr;gap:30px;align-items:stretch}
+  .slide[aria-label="下载与安装"] .activity-grid{align-content:center}
+  .slide[aria-label="下载与安装"] .activity{background:var(--wash-2);border-color:transparent}
+  .slide[aria-label="下载与安装"] .activity.active{background:var(--ink);color:var(--white)}
+  .slide[aria-label="下载与安装"] .activity.active small{color:rgba(255,255,255,.72)}
+  .slide[aria-label="下载与安装"] .panel-card{grid-template-rows:minmax(0,1fr)!important}
+  .slide[aria-label="下载与安装"] .media-frame.tall{max-height:none;height:100%}
+  .slide[aria-label="使用方式"] .package-row{grid-template-columns:1fr;gap:18px}
+  .slide[aria-label="使用方式"] .media-stack{grid-template-columns:1.18fr .82fr;align-items:stretch}
+  .slide[aria-label="使用方式"] .compare-note{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .slide[aria-label="使用方式"] .package-side{grid-template-columns:minmax(0,860px);align-items:end;justify-content:center}
+  .slide[aria-label="使用方式"] .package-copy{grid-template-columns:minmax(0,1fr);gap:14px}
+  .slide[aria-label="使用方式"] .package-copy .compare-note{width:100%}
+  .slide[aria-label="使用方式"] .package-copy .note-card{padding:14px 18px}
+  .slide[aria-label="使用方式"] .package-copy .note-card p{font-size:14px;line-height:1.42}
+  .slide[aria-label="使用方式"] .tour-card:first-child{background:var(--ink);border-color:var(--ink);color:var(--white)}
+  .slide[aria-label="使用方式"] .tour-card:first-child h3,.slide[aria-label="使用方式"] .tour-card:first-child .tour-meta,.slide[aria-label="使用方式"] .tour-card:first-child .tour-foot{color:var(--white)}
+  .slide[aria-label="购买国内 API 节点"] .media-stack{align-items:center;gap:34px}
+  .slide[aria-label="购买国内 API 节点"] .tour-card:first-child{transform:translateY(22px)}
+  .slide[aria-label="购买国内 API 节点"] .tour-card:last-child{transform:translateY(-18px)}
+  .slide[aria-label="购买国内 API 节点"] .head-split{grid-template-columns:1fr;justify-items:center;text-align:center}
+  .slide[aria-label="购买国内 API 节点"] .media-stack{align-items:stretch}
+  .slide[aria-label="购买国内 API 节点"] .tour-card:first-child,.slide[aria-label="购买国内 API 节点"] .tour-card:last-child{transform:none}
+  .slide[aria-label="购买国内 API 节点"] .tour-card{height:100%}
+  .slide[aria-label="购买国内 API 节点"] .tour-img{height:36vh;max-height:420px}
+  .slide[aria-label="购买国内 API 节点"] .media-stack{grid-template-columns:.98fr 1.02fr;align-items:start;gap:34px}
+  .slide[aria-label="购买国内 API 节点"] .tour-card{height:auto;min-height:0}
+  .slide[aria-label="购买国内 API 节点"] .tour-card:first-child .tour-img{aspect-ratio:1.12 / 1;height:auto;max-height:none;min-height:0}
+  .slide[aria-label="购买国内 API 节点"] .tour-card:last-child .tour-img{aspect-ratio:2.6 / 1;height:auto;max-height:none;min-height:0}
+  .slide[aria-label="购买国内 API 节点"] img[src$="image5.png"]{--img-fit:cover;--img-zoom:1.08;--img-position:center center;--img-origin:center center}
+  .slide[aria-label="购买国内 API 节点"] img[src$="image6.png"]{--img-fit:cover;--img-zoom:1.02;--img-position:center top;--img-origin:center top}
+  .api-reference{display:grid;grid-template-columns:1fr;gap:24px;align-items:start;justify-items:center;min-height:0}
+  .api-links{width:min(100%,1180px);display:grid;grid-template-columns:auto auto;gap:60px;align-items:center;justify-content:center;text-align:center}
+  .api-site{display:grid;gap:28px;align-content:start}
+  .api-url{font-size:28px;line-height:1.15;color:var(--ink);text-decoration:none;font-weight:500}
+  .api-url:hover{text-decoration:underline}
+  .api-shot{margin:0;background:var(--white);border:1px solid var(--line);border-radius:var(--radius-main);overflow:hidden}
+  .api-shot img{width:100%;height:100%;display:block;object-fit:contain;background:var(--white);cursor:zoom-in;border-radius:inherit}
+  .api-site:first-child{padding-top:0}
+  .api-site:first-child .api-url{display:block}
+  .api-site:first-child{display:contents}
+  .api-site:last-child{width:min(100%,1220px)}
+  .api-site:last-child .api-shot{aspect-ratio:2.61 / 1}
+  .api-reference img[src$="image5.png"],.api-reference img[src$="image6.png"]{--img-zoom:1;--img-fit:contain;--img-position:center center;--img-origin:center center}
+  .slide[aria-label="基础界面"]{background:var(--ink);color:var(--white)}
+  .slide[aria-label="基础界面"]:after{background:rgba(255,255,255,.18)}
+  .slide[aria-label="基础界面"] .chrome,.slide[aria-label="基础界面"] .page-no,.slide[aria-label="基础界面"] p,.slide[aria-label="基础界面"] .eyebrow{color:rgba(255,255,255,.78);border-color:rgba(255,255,255,.18)}
+  .slide[aria-label="基础界面"] h2,.slide[aria-label="基础界面"] h4{color:var(--white)}
+  .slide[aria-label="基础界面"] .section-cta{color:var(--white);border-color:var(--white)}
+  .slide[aria-label="基础界面"] .interface-shell{grid-template-columns:1.48fr .82fr .82fr;grid-template-rows:minmax(0,1fr) minmax(0,.74fr)}
+  .slide[aria-label="基础界面"] .interface-main{grid-column:1;grid-row:1 / 3}
+  .slide[aria-label="基础界面"] .interface-side-top{grid-column:2 / 4;grid-row:1}
+  .slide[aria-label="基础界面"] .interface-side-bottom>div:first-child{grid-column:2;grid-row:2}
+  .slide[aria-label="基础界面"] .interface-side-bottom>div:last-child{grid-column:3;grid-row:2}
+  .slide[aria-label="基础界面"] .icon{background:var(--accent);color:var(--ink)}
+  .slide[aria-label="代理环境变量"] .proxy-layout{grid-template-columns:.86fr 1.14fr;grid-template-rows:1fr;align-items:stretch}
+  .slide[aria-label="代理环境变量"] .proxy-top{grid-template-columns:1fr;grid-template-rows:repeat(2,minmax(0,1fr))}
+  .slide[aria-label="代理环境变量"] .proxy-bar{grid-template-columns:1fr;background:var(--ink);border-color:var(--ink);color:var(--white)}
+  .slide[aria-label="代理环境变量"] .proxy-bar p,.slide[aria-label="代理环境变量"] .proxy-bar pre,.slide[aria-label="代理环境变量"] .proxy-bar .eyebrow{color:var(--white)}
+  .slide[aria-label="代理环境变量"] .proxy-layout{height:min(66vh,640px);grid-template-columns:1.1fr .9fr;gap:34px;align-items:stretch}
+  .slide[aria-label="代理环境变量"] .proxy-top{height:100%;gap:24px}
+  .slide[aria-label="代理环境变量"] .proxy-panel,.slide[aria-label="代理环境变量"] .proxy-visual{height:100%;min-height:0}
+  .slide[aria-label="代理环境变量"] .proxy-visual{padding:16px}
+  .slide[aria-label="代理环境变量"] .proxy-visual .stack-img{height:100%;max-height:none;min-height:0}
+  .slide[aria-label="代理环境变量"] .proxy-bar{height:100%;align-content:start;padding:52px 46px;gap:42px}
+  .slide[aria-label="代理环境变量"] .proxy-bar pre{font-size:16px;line-height:1.72}
+  .slide[aria-label="代理环境变量"] .proxy-bar .proxy-note{gap:14px}
+  .slide[aria-label="自定义端口"] .package-head{width:min(100%,1360px);margin-inline:auto;grid-template-columns:1.18fr .82fr;align-items:end;gap:34px}
+  .slide[aria-label="自定义端口"] .package-side{display:flex;justify-content:flex-end;align-items:flex-start}
+  .slide[aria-label="自定义端口"] .port-layout{grid-template-columns:1.18fr .82fr;grid-template-rows:1fr;align-items:start}
+  .slide[aria-label="自定义端口"] .port-top{grid-template-columns:1fr;grid-template-rows:repeat(2,minmax(0,1fr))}
+  .slide[aria-label="自定义端口"] .port-top .tour-card{padding:12px;gap:8px}
+  .slide[aria-label="自定义端口"] .port-visual{height:22vh;max-height:190px;min-height:132px}
+  .slide[aria-label="自定义端口"] .port-visual:after{content:"";position:absolute;left:45%;top:68%;width:19%;height:6%;background:#fff;border-radius:8px}
+  .slide[aria-label="自定义端口"] .port-bar{background:var(--accent);border-color:var(--ink)}
+  .slide[aria-label="自定义端口"] .port-layout{--port-stage-h:min(52vh,520px);height:var(--port-stage-h);grid-template-columns:1.18fr .82fr;gap:34px;align-items:start}
+  .slide[aria-label="自定义端口"] .port-top{height:var(--port-stage-h);grid-template-rows:1fr;align-items:stretch;overflow:hidden}
+  .slide[aria-label="自定义端口"] .port-top .tour-card{height:var(--port-stage-h);max-height:var(--port-stage-h);min-height:0;padding:16px;gap:10px;grid-template-rows:auto minmax(0,1fr);overflow:hidden}
+  .slide[aria-label="自定义端口"] .port-visual{position:relative;height:100%;max-height:100%;min-height:0}
+  .slide[aria-label="自定义端口"] .port-bar{min-height:0;height:100%;padding:34px 38px;align-self:stretch;grid-template-columns:1fr;gap:18px;align-content:start}
+  .slide[aria-label="自定义端口"] .port-bar .proxy-note{grid-template-columns:1fr}
+  .slide[aria-label="自定义端口"] .port-bar p{max-width:30ch}
+  .slide[aria-label="项目化对话"] .gallery-shell{grid-template-columns:.82fr 1.18fr;align-items:stretch}
+  .slide[aria-label="项目化对话"] .gallery-card{max-height:50vh}
+  .slide[aria-label="项目化对话"] .gallery-shell{height:58vh}
+  .slide[aria-label="项目化对话"] .gallery-shell>.gallery-card{height:100%;max-height:none}
+  .slide[aria-label="项目化对话"] .gallery-main{height:100%;grid-template-rows:auto minmax(0,1fr);align-items:stretch}
+  .slide[aria-label="项目化对话"] .gallery-main>.gallery-card{height:100%;max-height:none}
+  .slide[aria-label="项目化对话"] .note-card{background:var(--ink);border-color:var(--ink)}
+  .slide[aria-label="项目化对话"] .note-card h3,.slide[aria-label="项目化对话"] .note-card p{color:var(--white)}
+  .slide[aria-label="套餐额度"] .quota-layout{grid-template-columns:1fr;justify-items:center;gap:20px}
+  .slide[aria-label="套餐额度"] .quota-layout .media-frame{width:min(100%,1080px)}
+  .slide[aria-label="套餐额度"] .quota-copy{grid-template-columns:auto minmax(0,1fr);align-items:center;width:min(100%,1080px);padding:24px 30px;background:var(--accent);border:1px solid var(--ink);border-radius:var(--radius-main)}
+  .slide[aria-label="套餐额度"] .quota-copy p{max-width:none;font-size:20px}
+  .slide[aria-label="设置入口"] .settings-layout{grid-template-columns:.9fr 1.1fr;align-items:end}
+  .slide[aria-label="设置入口"] .settings-layout .tour-card:first-child{transform:translateY(12px)}
+  .slide[aria-label="设置入口"] .settings-layout .tour-img{height:32vh;max-height:310px;min-height:210px}
+  .slide[aria-label="设置入口"] .settings-layout .tour-card:last-child{background:var(--ink);border-color:var(--ink);color:var(--white)}
+  .slide[aria-label="设置入口"] .settings-layout .tour-card:last-child h3,.slide[aria-label="设置入口"] .settings-layout .tour-card:last-child .tour-meta{color:var(--white)}
+  .slide[aria-label="设置入口"] .settings-layout{height:min(58vh,560px);grid-template-columns:.86fr 1.14fr;gap:34px;align-items:stretch}
+  .slide[aria-label="设置入口"] .settings-layout .tour-card{height:100%;min-height:0;padding:24px;grid-template-rows:auto auto minmax(0,1fr);overflow:hidden}
+  .slide[aria-label="设置入口"] .settings-layout .tour-card:first-child{transform:none}
+  .slide[aria-label="设置入口"] .settings-layout .tour-img{height:100%;max-height:none;min-height:0}
+  .slide[aria-label="设置入口"] .settings-layout .tour-card:first-child .tour-img img{--img-zoom:1.34;--img-position:left center;--img-origin:left center}
+  .slide[aria-label="设置入口"] .settings-layout .tour-card:last-child .tour-img img{--img-fit:contain;--img-zoom:1.02;--img-position:center center;--img-origin:center center}
+  .slide[aria-label="完全访问权限"] .access-layout{grid-template-columns:1.1fr .9fr;align-items:center}
+  .slide[aria-label="完全访问权限"] .access-layout .tour-card:first-child{background:var(--accent);border-color:var(--ink)}
+  .slide[aria-label="功能开关"] .toggle-layout{align-content:center}
+  .slide[aria-label="功能开关"] .toggle-layout .media-frame{width:min(100%,1180px);background:var(--ink);padding:18px}
+  .slide[aria-label="电脑与浏览器控制"] .media-stack{grid-template-columns:.92fr 1.08fr;align-items:stretch}
+  .slide[aria-label="电脑与浏览器控制"] .tour-card:first-child{background:var(--ink);border-color:var(--ink);color:var(--white)}
+  .slide[aria-label="电脑与浏览器控制"] .tour-card:first-child h3,.slide[aria-label="电脑与浏览器控制"] .tour-card:first-child .tour-meta{color:var(--white)}
+  .slide[aria-label="电脑与浏览器控制"] .tour-img{height:42vh;max-height:430px;min-height:260px}
+  .slide[aria-label="电脑与浏览器控制"] .tour-img img{--img-fit:contain;--img-zoom:1;--img-position:center center;--img-origin:center center}
+  .slide[aria-label="插件与自动化"] .gallery-shell{grid-template-columns:1fr 1fr;gap:24px}
+  .slide[aria-label="插件与自动化"] .note-card{background:var(--accent);border-color:var(--ink)}
+  .slide[aria-label="安装小红书技能商店"] .package-row{grid-template-columns:1fr;gap:18px}
+  .slide[aria-label="安装小红书技能商店"] .media-stack{grid-template-columns:1fr 1fr}
+  .slide[aria-label="安装小红书技能商店"] .note-card{width:min(100%,760px);justify-self:center;background:var(--ink);border-color:var(--ink)}
+  .slide[aria-label="安装小红书技能商店"] .note-card h3,.slide[aria-label="安装小红书技能商店"] .note-card p{color:var(--white)}
+  .slide[aria-label="调出插件"] .gallery-grid.three{grid-template-columns:.72fr 1fr 1fr;align-items:center}
+  .slide[aria-label="调出插件"] .gallery-grid.three .gallery-card:first-child{min-height:31vh;background:var(--accent-soft)}
+  .slide[aria-label="手机远程控制"] .media-stack{grid-template-columns:1.18fr .82fr;align-items:center}
+  .slide[aria-label="手机远程控制"] .tour-card:last-child{background:var(--ink);border-color:var(--ink);color:var(--white)}
+  .slide[aria-label="手机远程控制"] .tour-card:last-child h3,.slide[aria-label="手机远程控制"] .tour-card:last-child .tour-meta{color:var(--white)}
+  .slide[aria-label="结束语"]{background:var(--ink);color:var(--white)}
+  .slide[aria-label="结束语"]:after{background:rgba(255,255,255,.18)}
+  .slide[aria-label="结束语"] .chrome,.slide[aria-label="结束语"] .page-no,.slide[aria-label="结束语"] p,.slide[aria-label="结束语"] .eyebrow{color:rgba(255,255,255,.76);border-color:rgba(255,255,255,.18)}
+  .slide[aria-label="结束语"] h1{color:var(--white)}
+  body:before{opacity:.18;background:linear-gradient(90deg,rgba(20,20,15,.04) 1px,transparent 1px) 0 0/96px 96px}
+  .chrome,.hero,.section-shell,.chapter-body,.closing-shell,.partner-row{max-width:1300px}
+  .slide:nth-child(4n+2),.slide:nth-child(4n+3),.slide:nth-child(4n+4),.slide.band,.slide.soft{background:var(--paper)}
+  .slide:nth-child(4n+3),.slide.band{background:linear-gradient(180deg,var(--paper) 0 54%,var(--white) 54% 100%)}
+  h1,h2{font-weight:700}
+  h1{line-height:.9}
+  h2{line-height:.96}
+  .section-cta,.mini-btn,.ghost-btn{border-radius:26px;font-weight:700}
+  .slide[aria-label="封面"] .hero{grid-template-columns:1fr;grid-template-rows:1fr;align-items:center;text-align:center;gap:0}
+  .slide[aria-label="封面"] .hero-copy{align-items:center;gap:16px;padding-top:0;justify-content:center}
+  .slide[aria-label="封面"] h1{font-size:clamp(60px,7.2vw,112px);line-height:.92;max-width:1360px}
+  .slide[aria-label="封面"] .title-line{display:block}
+  .slide[aria-label="封面"] .hero-copy p{max-width:900px;font-size:18px;line-height:1.6}
+  .slide[aria-label="封面"] .search{width:min(760px,100%);margin-top:14px;text-align:left}
+  .slide[aria-label="封面"] .hero-art{width:100%;height:26vh;min-height:180px}
+  .slide[aria-label="封面"] .hero-art .brush{display:none}
+  .slide[aria-label="封面"] .shot{border-color:transparent}
+  .slide[aria-label="封面"] .shot.main{left:7%;top:0;width:86%;height:70%;border-radius:26px}
+  .slide[aria-label="封面"] .shot.crop-a{right:4%;top:22%;width:31%;height:65%;border-radius:26px}
+  .slide[aria-label="封面"] .shot.crop-b{left:18%;bottom:0;width:54%;height:42%;border-radius:26px}
+  .slide[aria-label="封面"] .partner-row{display:none}
+  .agenda-shell{height:calc(100vh - 8.6vh - 40px);max-width:1600px;margin-left:auto;margin-right:auto;display:grid;grid-template-rows:auto minmax(0,1fr);gap:32px;position:relative;z-index:2}
+  .agenda-head{display:grid;grid-template-columns:.82fr 1.18fr;gap:4vw;align-items:end}
+  .agenda-head h2{font-size:clamp(46px,5.5vw,92px);line-height:.94;max-width:760px}
+  .agenda-head p{max-width:52ch;font-size:18px;line-height:1.62}
+  .agenda-grid{display:grid;grid-template-columns:1.04fr .86fr 1.04fr .86fr;gap:18px;align-items:start;align-self:start;min-height:0}
+  .agenda-card{position:relative;display:grid;grid-template-rows:auto auto auto auto;gap:18px;padding:24px;border:1px solid var(--line);border-radius:var(--radius-main);background:rgba(255,255,255,.92);overflow:hidden}
+  .agenda-card.dark{background:var(--ink);border-color:var(--ink);color:var(--white)}
+  .agenda-card.accent{background:var(--accent);border-color:var(--ink)}
+  .agenda-card .kicker{display:flex;justify-content:space-between;gap:14px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .agenda-card.dark .kicker,.agenda-card.dark li,.agenda-card.dark .range{color:rgba(255,255,255,.78)}
+  .agenda-card h3{font-size:28px;line-height:1.08}
+  .agenda-card ol{display:grid;gap:11px;margin:0;padding:0;list-style:none;align-content:start}
+  .agenda-card li{display:grid;grid-template-columns:42px minmax(0,1fr);gap:12px;align-items:baseline;color:var(--text);font-size:17px;line-height:1.34}
+  .agenda-card li span:first-child{font-family:var(--mono);font-size:12px;color:inherit;opacity:.72}
+  .agenda-card .range{margin-top:20px;font-family:var(--mono);font-size:12px;color:var(--muted);border-top:1px solid currentColor;padding-top:14px;opacity:.82}
+  .head-split,.package-head{grid-template-columns:1fr;gap:18px;text-align:center;align-items:center;justify-items:center}
+  .head-copy{justify-items:center}
+  .head-side,.package-side{grid-template-columns:1fr auto;justify-content:center;max-width:840px}
+  .head-side p,.package-copy p{text-align:center;max-width:64ch}
+  .tabs{margin-inline:auto}
+  .media-frame,.panel-card,.gallery-card,.feature-card,.tour-card,.note-card,.quote-card,.code-card,.proxy-panel,.port-panel,.proxy-bar,.port-bar{border-color:transparent}
+  .tour-card.accent{background:var(--accent);border-color:transparent}
+  .slide[aria-label="下载与安装"] .head-split,.slide[aria-label="基础界面"] .head-split,.slide[aria-label="代理环境变量"] .head-split,.slide[aria-label="自定义端口"] .package-head{grid-template-columns:.9fr 1.1fr;text-align:left;justify-items:stretch}
+  .slide[aria-label="下载与安装"] .head-copy,.slide[aria-label="基础界面"] .head-copy,.slide[aria-label="代理环境变量"] .head-copy,.slide[aria-label="自定义端口"] .head-copy{justify-items:start}
+  .slide[aria-label="下载与安装"] .head-side p,.slide[aria-label="基础界面"] .head-side p,.slide[aria-label="代理环境变量"] .head-side p,.slide[aria-label="自定义端口"] .package-copy p{text-align:left}
+  .dock{background:rgba(245,245,235,.88);border:1px solid var(--line);border-radius:26px;padding:8px 10px;backdrop-filter:blur(10px)}
+  .dot{width:10px;height:10px;border-color:var(--ink);transition:width .25s ease,background .25s ease,border-color .25s ease}
+  .dot.active{width:28px;background:var(--accent);border-color:var(--accent)}
+  .slide[aria-label="基础界面"],.slide[aria-label="结束语"]{background:var(--ink);color:var(--white)}
+  .slide[aria-label="基础界面"]:after,.slide[aria-label="结束语"]:after{background:rgba(255,255,255,.24)}
+  .slide[aria-label="基础界面"] .chrome,.slide[aria-label="结束语"] .chrome{border-color:rgba(255,255,255,.22)}
+  .slide[aria-label="基础界面"] .brand,.slide[aria-label="基础界面"] .page-no,.slide[aria-label="基础界面"] .eyebrow,.slide[aria-label="基础界面"] h1,.slide[aria-label="基础界面"] h2,.slide[aria-label="基础界面"] h3,.slide[aria-label="基础界面"] h4,.slide[aria-label="基础界面"] p,.slide[aria-label="结束语"] .brand,.slide[aria-label="结束语"] .page-no,.slide[aria-label="结束语"] .eyebrow,.slide[aria-label="结束语"] h1,.slide[aria-label="结束语"] h2,.slide[aria-label="结束语"] h3,.slide[aria-label="结束语"] h4,.slide[aria-label="结束语"] p{color:var(--white)}
+  .slide[aria-label="结束语"] .closing-call p,.slide[aria-label="基础界面"] .head-side p{color:rgba(255,255,255,.9)}
+  .slide[aria-label="基础界面"] .section-cta{color:var(--white);border-color:var(--white)}
+  .tour-card[style*="--dark"],.note-card[style*="--dark"]{color:var(--white)}
+  .dock{position:fixed;left:50%;bottom:1.8vh;transform:translateX(-50%);display:flex;gap:10px;z-index:10}
+  .dot{width:9px;height:9px;border:1px solid var(--ink);border-radius:99px;background:transparent}
+  .dot.active{background:var(--accent);border-color:var(--accent)}
+  .hint{position:fixed;right:3.8vw;bottom:1.5vh;font-family:var(--mono);font-size:11px;color:var(--muted);z-index:10}
+  .lightbox{position:fixed;inset:0;display:grid;place-items:center;padding:3vh 3vw;background:rgba(20,20,15,.82);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .25s ease;z-index:30;overflow:hidden}
+  .lightbox.is-open{opacity:1;pointer-events:auto}
+  .lightbox-frame{position:relative;display:grid;place-items:center;width:94vw;height:94vh;overflow:visible}
+  .lightbox-frame img{display:block;max-width:94vw;max-height:94vh;width:auto;height:auto;object-fit:contain;border-radius:0;background:var(--white);cursor:zoom-in;transform:scale(var(--zoom,1));transform-origin:center center;transition:transform .12s ease}
+  .lightbox-frame img.is-zoomed{cursor:zoom-out}
+  [data-anim]{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s cubic-bezier(.2,0,.2,1)}
+  .is-active [data-anim]{opacity:1;transform:none}
+  .is-active [data-anim="2"]{transition-delay:.08s}
+  .is-active [data-anim="3"]{transition-delay:.16s}
+  .is-active [data-anim="4"]{transition-delay:.24s}
+  @media (min-width:1500px){
+    .slide{padding:2.6vh 2.1vw 3.2vh}
+    .chrome,.hero,.section-shell,.chapter-body,.closing-shell,.partner-row{max-width:1680px}
+    h1{font-size:clamp(54px,5.4vw,92px);line-height:.9}
+    h2{font-size:clamp(44px,4vw,70px);line-height:.94}
+    h3{font-size:24px}
+    p{font-size:16px;line-height:1.48}
+    .section-shell{height:calc(100vh - 6vh - 40px);gap:2vh}
+    .hero{height:calc(100vh - 6vh - 40px)}
+    .head-split,.package-head{gap:2vw}
+    .head-side p{max-width:54ch}
+    .package-row{gap:26px}
+    .media-stack{gap:22px}
+    .tour-card{padding:24px;gap:14px}
+    .tour-img{height:36vh;max-height:420px;min-height:240px}
+    .gallery-shell{gap:26px}
+    .gallery-card.hero{min-height:52vh}
+    .gallery-card.big{min-height:40vh}
+    .image-dominant .gallery-shell{grid-template-columns:1.28fr .72fr;gap:26px}
+    .image-dominant .gallery-main .gallery-card{min-height:42vh}
+    .image-dominant .gallery-grid.three .gallery-card{min-height:48vh}
+    .strategy-media .stack-img{height:min(56vh,610px)}
+    .media-frame.tall{max-height:58vh}
+    .toggle-layout .media-frame{width:min(100%,1480px)}
+    .toggle-layout .media-frame.tall{max-height:60vh}
+    .quota-layout .media-frame.tall{max-height:58vh}
+    .quota-layout .media-frame,.slide[aria-label="套餐额度"] .quota-copy{width:min(100%,1400px)}
+    .settings-layout .tour-img{height:44vh;max-height:500px;min-height:320px}
+    .access-layout .tour-img{height:42vh;max-height:480px;min-height:300px}
+    .agenda-shell{gap:28px}
+    .agenda-grid{gap:18px}
+    .agenda-card{min-height:0;height:min(38vh,380px);padding:22px 24px;gap:16px}
+    .agenda-card h3{font-size:26px}
+    .agenda-card ol{gap:9px}
+    .agenda-card li{font-size:16px;line-height:1.3}
+    .agenda-card .range{margin-top:12px}
+    .slide[aria-label="封面"] .hero-copy{gap:18px}
+    .slide[aria-label="封面"] h1{font-size:clamp(80px,6.7vw,124px);max-width:1500px}
+    .slide[aria-label="封面"] .hero-copy p{max-width:980px;font-size:19px;line-height:1.58}
+    .slide[aria-label="封面"] .search{width:min(820px,100%);margin-top:16px}
+    .slide[aria-label="使用方式"] .media-stack{grid-template-columns:1.38fr .92fr}
+    .slide[aria-label="使用方式"] .tour-card{max-height:500px}
+    .slide[aria-label="使用方式"] .tour-img{height:30vh;max-height:320px;min-height:220px}
+    .slide[aria-label="使用方式"] .compare-note{gap:14px}
+    .slide[aria-label="使用方式"] .note-card{padding:14px 18px}
+    .slide[aria-label="使用方式"] .note-card p{font-size:15px;line-height:1.36}
+    .slide[aria-label="使用方式"] .compare-note{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .slide[aria-label="购买国内 API 节点"] .media-stack{gap:36px;align-items:stretch}
+    .slide[aria-label="购买国内 API 节点"] .tour-img{height:34vh;max-height:380px}
+    .slide[aria-label="购买国内 API 节点"] .media-stack{grid-template-columns:.98fr 1.02fr;align-items:start;gap:36px}
+    .slide[aria-label="购买国内 API 节点"] .tour-card{height:auto}
+    .slide[aria-label="购买国内 API 节点"] .tour-card:first-child .tour-img{aspect-ratio:1.12 / 1;height:auto;max-height:none;min-height:0}
+    .slide[aria-label="购买国内 API 节点"] .tour-card:last-child .tour-img{aspect-ratio:2.6 / 1;height:auto;max-height:none;min-height:0}
+    .api-reference{grid-template-columns:1fr;justify-items:center}
+    .api-links{width:min(100%,1180px)}
+    .api-site:last-child{width:min(100%,1220px)}
+    .slide[aria-label="基础界面"] .interface-shell{grid-template-columns:1.6fr .88fr .88fr;gap:28px 30px}
+    .slide[aria-label="代理环境变量"] .proxy-layout,.slide[aria-label="自定义端口"] .port-layout{gap:24px;align-items:start}
+    .slide[aria-label="代理环境变量"] .proxy-visual .stack-img{height:30vh;max-height:340px}
+    .slide[aria-label="代理环境变量"] .proxy-bar,.slide[aria-label="自定义端口"] .port-bar{min-height:0;max-height:62vh}
+    .slide[aria-label="代理环境变量"] .proxy-layout{--proxy-stage-h:min(64vh,640px);height:var(--proxy-stage-h);grid-template-columns:1.1fr .9fr;gap:34px;align-items:stretch}
+    .slide[aria-label="代理环境变量"] .proxy-top{height:var(--proxy-stage-h);grid-template-rows:calc((var(--proxy-stage-h) - 24px)/2) calc((var(--proxy-stage-h) - 24px)/2);gap:24px;overflow:hidden}
+    .slide[aria-label="代理环境变量"] .proxy-panel{height:100%;min-height:0;overflow:hidden}
+    .slide[aria-label="代理环境变量"] .proxy-visual{height:100%;max-height:100%;min-height:0;padding:16px;overflow:hidden}
+    .slide[aria-label="代理环境变量"] .proxy-visual .stack-img{height:100%;max-height:100%;min-height:0}
+    .slide[aria-label="代理环境变量"] .proxy-bar{height:var(--proxy-stage-h);max-height:none;padding:52px 46px;align-content:start;overflow:hidden}
+    .slide[aria-label="自定义端口"] .port-layout{--port-stage-h:min(52vh,520px);height:var(--port-stage-h);grid-template-columns:1.18fr .82fr;gap:34px;align-items:start}
+    .slide[aria-label="自定义端口"] .port-top{height:var(--port-stage-h);grid-template-rows:1fr;align-items:stretch;overflow:hidden}
+    .slide[aria-label="自定义端口"] .port-top .tour-card{height:var(--port-stage-h);max-height:var(--port-stage-h);min-height:0;padding:16px;grid-template-rows:auto minmax(0,1fr);overflow:hidden}
+    .slide[aria-label="自定义端口"] .port-visual{height:100%;max-height:100%;min-height:0}
+    .slide[aria-label="自定义端口"] .port-bar{max-height:none;padding:34px 38px;align-self:start}
+    .slide[aria-label="项目化对话"] .gallery-shell{height:56vh}
+    .slide[aria-label="项目化对话"] .gallery-card{max-height:none}
+    .slide[aria-label="功能开关"] .toggle-layout .media-frame{width:min(100%,1580px)}
+    .slide[aria-label="插件与自动化"] .gallery-shell{height:56vh;align-items:start}
+    .slide[aria-label="插件与自动化"] .gallery-card.hero{height:56vh;min-height:0}
+    .slide[aria-label="插件与自动化"] .gallery-main{height:56vh;grid-template-rows:auto minmax(0,1fr)}
+    .slide[aria-label="插件与自动化"] .gallery-main .gallery-card{min-height:0}
+    .slide[aria-label="电脑与浏览器控制"] .tour-img{height:42vh;max-height:430px;min-height:260px}
+    .slide[aria-label="手机远程控制"] .media-stack{grid-template-columns:1.36fr .84fr}
+  }
+  @media (max-width:1499px){
+    .slide{padding:2.7vh 3vw 3.1vh}
+    .chrome,.hero,.section-shell,.chapter-body,.closing-shell,.partner-row{max-width:1380px}
+    h1{font-size:clamp(46px,5.8vw,84px);line-height:.9}
+    h2{font-size:clamp(38px,4.45vw,64px);line-height:.94}
+    h3{font-size:24px}
+    p{font-size:16px;line-height:1.5}
+    .section-shell{height:calc(100vh - 5.8vh - 40px);gap:1.8vh}
+    .head-split,.package-head{grid-template-columns:.9fr 1.1fr;gap:2.4vw}
+    .head-copy{gap:8px}
+    .head-side,.package-side{gap:14px}
+    .head-side p{max-width:48ch}
+    .package-copy{gap:12px}
+    .package-row{grid-template-columns:1.32fr .68fr;gap:20px}
+    .media-stack{gap:16px}
+    .tour-card{padding:18px;gap:10px}
+    .tour-img{height:29vh;max-height:285px;min-height:158px}
+    .note-card{padding:17px 19px}
+    .note-card p{font-size:15px;line-height:1.48;margin-top:8px}
+    .gallery-shell{grid-template-columns:1.08fr .92fr;gap:20px}
+    .image-dominant .gallery-shell{grid-template-columns:1.2fr .8fr;gap:16px}
+    .interface-shell{grid-template-columns:1.12fr 1.12fr 1fr 1fr;grid-template-rows:minmax(132px,.42fr) minmax(182px,.58fr);gap:14px 16px}
+    .interface-main .gallery-card,.interface-side-top .gallery-card,.interface-side-bottom .gallery-card{height:100%;min-height:0}
+    .code-card{padding:18px 20px;gap:12px}
+    .proxy-layout,.port-layout{gap:14px}
+    .proxy-top,.port-top{gap:14px}
+    .proxy-visual,.port-visual{padding:10px}
+    .proxy-visual .stack-img{height:28vh;max-height:260px;min-height:174px}
+    .port-visual{height:28vh;max-height:250px;min-height:166px}
+    .proxy-info,.proxy-bar,.port-bar{padding:18px 20px}
+    .proxy-info p,.proxy-bar p,.port-bar p{font-size:15px;line-height:1.48}
+    .proxy-bar{grid-template-columns:1fr;gap:14px}
+    .port-top .tour-card{padding:14px}
+    .port-bar{grid-template-columns:1fr;gap:14px}
+    pre{font-size:12px;line-height:1.55}
+    .quote-card{padding:18px 20px;gap:10px}
+    .toggle-layout .media-frame.tall{max-height:58vh}
+    .quota-layout{gap:18px}
+    .quota-layout .media-frame.tall{max-height:56vh}
+    .quota-copy{gap:14px;padding:6px 0 6px 8px}
+    .quota-copy strong{font-size:34px}
+    .quota-copy p{font-size:23px;max-width:24ch}
+    .settings-layout{gap:16px}
+    .settings-layout .tour-card{padding:16px}
+    .settings-layout .tour-img{height:35vh;max-height:360px;min-height:230px}
+    .access-layout{gap:16px}
+    .access-layout .tour-card{padding:14px}
+    .access-layout .tour-img{height:34vh;max-height:340px;min-height:220px}
+    .closing-call{gap:12px}
+  }
+  @media (max-width:1050px){
+    .slide{padding:28px;overflow:auto}
+    .nav,.partner-row,.hint{display:none}
+    .hero,.dual-stage,.gallery-shell,.package-row,.head-split,.head-side,.package-side,.chapter-body,.closing-shell,.code-grid,.quote-shell,.stacked,.feature-grid,.media-stack,.gallery-grid.three,.gallery-grid,.interface-shell,.quota-layout,.proxy-top,.port-top,.port-bar,.api-reference,.practice-layout,.operate-layout,.main-skill-layout,.main-skill-result{grid-template-columns:1fr}
+    .search{grid-template-columns:1fr}
+    .search-open{min-height:52px}
+    .hero-art{height:40vh;min-height:320px}
+    .tour-img{height:200px}
+    .media-frame.tall{max-height:360px}
+    .proxy-visual .stack-img,.port-visual{height:200px;max-height:none;min-height:0}
+    .quota-copy{padding:0}
+    .quota-copy strong{font-size:28px}
+    .quota-copy p{font-size:18px;max-width:none}
+  }
+  @media (min-width:1051px){
+    .section-shell,.agenda-shell{padding-top:32px}
+  }
+  @media (min-width:1500px){
+    .head-copy h2,.agenda-head h2{max-width:none;white-space:nowrap}
+  }
+  @media (min-width:1500px){
+    :root{
+      --safe-max:1680px;
+      --safe-top:28px;
+      --safe-bottom:66px;
+      --chrome-h:40px;
+      --safe-body-h:calc(100vh - var(--safe-top) - var(--chrome-h) - var(--safe-bottom));
+    }
+    .slide{padding:var(--safe-top) 2.1vw var(--safe-bottom)}
+    .chrome,.hero,.section-shell,.agenda-shell,.chapter-body,.closing-shell,.partner-row,.opener-shell{max-width:var(--safe-max)}
+    .section-shell,.agenda-shell{
+      height:var(--safe-body-h);
+      padding-top:32px;
+      gap:22px;
+    }
+    .hero,.chapter-body,.closing-shell,.opener-shell{height:var(--safe-body-h)}
+    .section-shell>*:last-child,.agenda-grid,.closing-call{min-height:0}
+    .slide[aria-label="代理环境变量"] .proxy-layout{--proxy-stage-h:min(58vh,600px);height:var(--proxy-stage-h)}
+    .slide[aria-label="自定义端口"] .port-layout{--port-stage-h:min(48vh,500px);height:var(--port-stage-h)}
+    .slide[aria-label="设置入口"] .settings-layout{height:min(54vh,530px)}
+    .slide[aria-label="项目化对话"] .gallery-shell,
+    .slide[aria-label="插件与自动化"] .gallery-shell,
+    .slide[aria-label="插件与自动化"] .gallery-card.hero,
+    .slide[aria-label="插件与自动化"] .gallery-main{height:min(52vh,540px)}
+    .slide[aria-label="功能开关"] .toggle-layout .media-frame{width:min(100%,1420px)}
+    .slide[aria-label="套餐额度"] .quota-layout .media-frame,
+    .slide[aria-label="套餐额度"] .quota-copy{width:min(100%,1160px)}
+    .strategy-media .stack-img{height:min(52vh,540px)}
+    .slide[aria-label="调出插件"] .gallery-grid.three .gallery-card{min-height:min(46vh,500px)}
+  }
+  @media (min-width:1500px){
+    .slide[aria-label="使用方式"] .media-stack{height:min(58vh,600px)}
+    .slide[aria-label="使用方式"] .tour-card{height:100%;max-height:none}
+    .slide[aria-label="使用方式"] .tour-img{height:auto;max-height:none;min-height:0}
+    .slide[aria-label="代理环境变量"] .proxy-layout{--proxy-stage-h:min(80vh,820px);grid-template-columns:minmax(680px,740px) minmax(0,1fr)}
+    .slide[aria-label="代理环境变量"] .proxy-bar{align-content:center}
+    .slide[aria-label="自定义端口"] .port-layout{--port-stage-h:min(60vh,620px)}
+    .slide[aria-label="自定义端口"] .port-bar{align-self:stretch;display:grid;align-content:center}
+    .slide[aria-label="项目化对话"] .gallery-shell{height:min(66vh,660px)}
+    .slide[aria-label="设置入口"] .settings-layout{height:min(62vh,620px)}
+    .slide[aria-label="插件与自动化"] .gallery-shell,
+    .slide[aria-label="插件与自动化"] .gallery-card.hero,
+    .slide[aria-label="插件与自动化"] .gallery-main{height:min(64vh,650px)}
+    .slide[aria-label="安装小红书技能商店"] .package-row{height:min(62vh,620px);align-items:stretch}
+    .slide[aria-label="安装小红书技能商店"] .media-stack,
+    .slide[aria-label="安装小红书技能商店"] .tour-card,
+    .slide[aria-label="安装小红书技能商店"] .note-card{height:100%}
+    .slide[aria-label="安装小红书技能商店"] .note-card{display:grid;align-content:center}
+    .slide[aria-label="安装小红书技能商店"] .tour-img{height:auto;max-height:none;min-height:0}
+  }
+  .media-frame.contain img,
+  .gallery-card.contain img,
+  .tour-img.contain img,
+  .stack-img.contain img{
+    --img-fit:contain!important;
+    --img-zoom:1!important;
+    --img-position:center center!important;
+    --img-origin:center center!important;
+  }
+  @media (min-width:1500px){
+    .slide[aria-label="使用方式"] .package-row,
+    .slide[aria-label="自定义端口"] .port-layout,
+    .slide[aria-label="项目化对话"] .gallery-shell,
+    .slide[aria-label="设置入口"] .settings-layout,
+    .slide[aria-label="完全访问权限"] .access-layout,
+    .slide[aria-label="电脑与浏览器控制"] .media-stack,
+    .slide[aria-label="插件策略"] .strategy-media,
+    .slide[aria-label="安装小红书技能商店"] .package-row,
+    .slide[aria-label="手机远程控制"] .media-stack,
+    .slide[aria-label="实操技能与插件"] .practice-layout,
+    .slide[aria-label="电脑控制实操"] .operate-layout,
+    .slide[aria-label="生成主图技能实操"] .main-skill-layout,
+    .slide[aria-label="主图生成结果"] .main-skill-result{
+      width:min(100%,1360px);
+      margin-inline:auto;
+    }
+    .slide[aria-label="套餐额度"] .quota-layout,
+    .slide[aria-label="功能开关"] .toggle-layout{
+      width:min(100%,1240px);
+      margin-inline:auto;
+    }
+    .slide[aria-label="购买国内 API 节点"] .api-reference{
+      width:min(100%,1320px);
+      margin-inline:auto;
+    }
+    .slide[aria-label="插件与自动化"] .gallery-shell{
+      width:min(100%,1480px);
+      margin-inline:auto;
+    }
+    .hero,.section-shell,.agenda-shell,.opener-shell,.closing-shell{
+      align-content:center;
+    }
+    .section-shell,.agenda-shell{
+      grid-template-rows:auto auto;
+      justify-content:center;
+    }
+    .agenda-grid{
+      align-self:center;
+    }
+    .slide[aria-label="目录"] .agenda-shell{
+      padding-top:0;
+      gap:42px;
+    }
+    .slide[aria-label="目录"] .agenda-head{
+      justify-content:center;
+      text-align:center;
+    }
+    .slide[aria-label="目录"] .agenda-head .head-copy{
+      justify-items:center;
+    }
+    .section-shell,.agenda-shell{
+      gap:16px;
+    }
+    .head-split,.package-head{
+      gap:10px;
+    }
+    .head-copy{
+      gap:6px;
+    }
+    .head-side,.package-side{
+      gap:8px;
+    }
+    .head-side,.package-side{
+      align-items:start;
+    }
+    .section-cta{
+      padding:10px 15px;
+    }
+  }
+  @media (max-width:1499px) and (min-width:1051px){
+    .section-shell,.agenda-shell{
+      height:calc(100vh - 9vh - 40px);
+      gap:14px;
+      align-content:center;
+      grid-template-rows:auto auto;
+      justify-content:center;
+    }
+    .head-split,.package-head{gap:8px}
+    .head-copy{gap:5px}
+    .head-side,.package-side{gap:8px;align-items:start}
+    .section-cta{padding:9px 14px}
+    .tour-img{height:26vh;max-height:250px;min-height:150px}
+    .slide[aria-label="下载与安装"] .dual-stage,
+    .slide[aria-label="使用方式"] .package-row,
+    .slide[aria-label="购买国内 API 节点"] .api-reference,
+    .slide[aria-label="项目化对话"] .gallery-shell,
+    .slide[aria-label="套餐额度"] .quota-layout,
+    .slide[aria-label="完全访问权限"] .access-layout,
+    .slide[aria-label="功能开关"] .toggle-layout,
+    .slide[aria-label="电脑与浏览器控制"] .media-stack,
+    .slide[aria-label="插件与自动化"] .gallery-shell,
+    .slide[aria-label="插件策略"] .strategy-media,
+    .slide[aria-label="安装小红书技能商店"] .package-row,
+    .slide[aria-label="调出插件"] .gallery-grid.three{
+      max-height:calc(100vh - 230px);
+      align-self:center;
+    }
+    .slide[aria-label="代理环境变量"] .proxy-layout{
+      height:min(52vh,400px)!important;
+      grid-template-columns:minmax(0,.96fr) minmax(0,1.04fr);
+      gap:20px;
+      align-items:stretch;
+    }
+    .slide[aria-label="代理环境变量"] .proxy-top{
+      height:100%!important;
+      grid-template-rows:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+    .slide[aria-label="代理环境变量"] .proxy-panel,
+    .slide[aria-label="代理环境变量"] .proxy-visual,
+    .slide[aria-label="代理环境变量"] .proxy-visual .stack-img{
+      height:100%!important;
+      min-height:0!important;
+      max-height:none!important;
+    }
+    .slide[aria-label="代理环境变量"] .proxy-bar{
+      height:100%!important;
+      padding:24px 26px;
+      gap:18px;
+      align-content:center;
+      overflow:hidden;
+    }
+    .slide[aria-label="代理环境变量"] .proxy-bar pre{font-size:13px;line-height:1.55}
+    .slide[aria-label="自定义端口"] .port-layout{
+      --port-stage-h:min(50vh,380px);
+    }
+  }
+  .slide[aria-label="结束语"] .closing-shell{
+    height:calc(100vh - 9.3vh - 40px);
+    display:grid;
+    grid-template-columns:1fr;
+    place-items:center;
+    max-width:1320px;
+    margin:0 auto;
+    text-align:center;
+  }
+  .slide[aria-label="结束语"] .closing-call{
+    justify-items:center;
+    align-content:center;
+    gap:22px;
+    max-width:1180px;
+    margin-inline:auto;
+  }
+  .slide[aria-label="结束语"] .closing-call h1{
+    max-width:1180px;
+    font-size:clamp(66px,8.3vw,136px);
+    line-height:.9;
+    letter-spacing:-.08em;
+    text-align:center;
+  }
+  .slide[aria-label="结束语"] .closing-call p{
+    max-width:820px;
+    margin-inline:auto;
+    font-size:20px;
+    line-height:1.65;
+    text-align:center;
+  }
+  .slide[aria-label="结束语"] .eyebrow{
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+<main id="deck">
+  <section class="slide soft" data-layout="S22" aria-label="封面">
+    <header class="chrome">
+      <div class="brand">Codex Guide.</div>
+      <nav class="nav"><span>Discover</span><span>Setup</span><span>Workflow</span><span>Pitfalls</span></nav>
+      <div class="badge">Begin</div>
+    </header>
+    <div class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow" data-anim>AI SHARE · 2026.05.30</div>
+        <h1 data-anim="2"><span class="title-line">设计师如何使用&nbsp;Codex</span><span class="title-line underline">提升效率</span></h1>
+        <p data-anim="3">把入口、安装、基础设置、插件和远程控制串成一份完整的网页演示稿。图片继续按原 PPT 每页锁定，排版按参考网站的整站节奏重排。</p>
+        <a class="search" data-anim="4" href="https://codexguide.ai/" target="_blank" rel="noopener">
+          <div class="search-url"><span>https://codexguide.ai/</span></div>
+          <span class="search-open">Open</span>
+        </a>
+      </div>
+    </div>
+    <div class="partner-row"><span>ChatGPT</span><span>Codex</span><span>Guide</span><span>Design</span></div>
+  </section>
+
+  <section class="slide band" data-layout="S20" aria-label="目录">
+    <header class="chrome">
+      <div class="brand">Content Map</div>
+      <div class="page-no">02 / 28</div>
+    </header>
+    <div class="agenda-shell">
+      <div class="agenda-head">
+        <div class="head-copy">
+          <div class="eyebrow" data-anim>What We Will Cover</div>
+          <h2 data-anim="2">本次分享 <span class="underline">目录</span></h2>
+        </div>
+        <p data-anim="3">按照原 PPT 的讲解路径，把 Codex 从安装入口、基础配置、权限设置到插件远程控制分成四段，便于听众先建立完整路线。</p>
+      </div>
+      <div class="agenda-grid" data-anim="3">
+        <article class="agenda-card accent">
+          <div class="kicker"><span>PART 01</span><span>START</span></div>
+          <h3>起步与入口</h3>
+          <ol>
+            <li><span>03</span><span>Codex 下载与安装</span></li>
+            <li><span>04</span><span>两种不同的使用方式</span></li>
+            <li><span>05</span><span>购买国内 API 节点</span></li>
+          </ol>
+          <div class="range">Pages 03-05</div>
+        </article>
+        <article class="agenda-card">
+          <div class="kicker"><span>PART 02</span><span>SETUP</span></div>
+          <h3>基础配置</h3>
+          <ol>
+            <li><span>06</span><span>基础界面与登录状态</span></li>
+            <li><span>07</span><span>代理环境变量</span></li>
+            <li><span>08</span><span>自定义端口处理</span></li>
+            <li><span>09</span><span>项目化对话</span></li>
+          </ol>
+          <div class="range">Pages 06-10</div>
+        </article>
+        <article class="agenda-card dark">
+          <div class="kicker"><span>PART 03</span><span>CONTROL</span></div>
+          <h3>权限与设置</h3>
+          <ol>
+            <li><span>10</span><span>套餐额度说明</span></li>
+            <li><span>11</span><span>设置入口与页面</span></li>
+            <li><span>12</span><span>完全访问权限</span></li>
+            <li><span>13</span><span>功能开关打开</span></li>
+            <li><span>14</span><span>电脑与浏览器控制</span></li>
+          </ol>
+          <div class="range">Pages 11-16</div>
+        </article>
+        <article class="agenda-card">
+          <div class="kicker"><span>PART 04</span><span>EXTEND</span></div>
+          <h3>插件与远程</h3>
+          <ol>
+            <li><span>15</span><span>插件和自动化入口</span></li>
+            <li><span>16</span><span>插件、技能与自动化策略</span></li>
+            <li><span>17</span><span>安装小红书技能商店</span></li>
+            <li><span>18</span><span>调出插件</span></li>
+            <li><span>19</span><span>手机远程控制</span></li>
+            <li><span>20</span><span>实操技能与结尾建议</span></li>
+          </ol>
+          <div class="range">Pages 17-27</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-layout="S11" aria-label="下载与安装">
+    <header class="chrome">
+      <div class="brand">起步与入口</div>
+      <div class="page-no">03 / 28</div>
+    </header>
+    <div class="section-shell">
+      <div class="head-split">
+        <div class="head-copy">
+          <div class="eyebrow" data-anim>Download Setup</div>
+          <h2 data-anim>Codex 桌面应用程序 <span class="underline">下载与安装</span></h2>
+        </div>
+        <div class="head-side">
+          <p data-anim="2">入口、系统下载、安装和账号登录压成四个轻标签，页面重点交给固定截图，像参考网页的产品入口区。</p>
+          <button class="section-cta" data-anim="3">Install Flow</button>
+        </div>
+      </div>
+      <div class="dual-stage">
+        <div class="activity-grid" data-anim="3">
+          <article class="activity active"><div class="icon">01</div><div><h4>打开入口</h4><small>chatgpt.com/codex/cloud</small></div></article>
+          <article class="activity"><div class="icon">02</div><div><h4>选择系统</h4><small>页面中央下载按钮</small></div></article>
+          <article class="activity"><div class="icon">03</div><div><h4>安装 App</h4><small>桌面端开始使用</small></div></article>
+          <article class="activity"><div class="icon">04</div><div><h4>账号登录</h4><small>ChatGPT / OpenAI 账号</small></div></article>
+        </div>
+        <div class="panel-card" data-anim="4" style="display:grid;grid-template-rows:auto minmax(0,1fr);gap:14px">
+          <div class="caption-strip">
+            <p>本页固定图片：原 PPT 第 2 页截图，完整保留并放大成主视觉。</p>
+            <button class="mini-btn">image2.png</button>
+          </div>
+          <figure class="media-frame contain tall"><img src="ppt-media/image2.png" alt="Codex 下载页面截图"></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide band" data-layout="S08" aria-label="使用方式">
+    <header class="chrome">
+      <div class="brand">起步与入口</div>
+      <div class="page-no">04 / 28</div>
+    </header>
+    <div class="section-shell">
+      <div class="package-head">
+        <div class="head-copy">
+          <div class="eyebrow" data-anim>Two Ways To Start</div>
+          <h2 data-anim="2">两种不同的 <span class="underline">使用方式</span></h2>
+        </div>
+        <div class="package-side">
+          <div class="package-copy">
+            <div class="compare-note" data-anim="3">
+              <article class="note-card"><h3>01 <span>Plus</span></h3><p>没有 Visa 卡时，可以通过 Google 支付或手机端方案处理，适合作为最稳的主路径。</p></article>
+              <article class="note-card"><h3>02 <span>国内 API</span></h3><p>作为另一条路，后续会接到 API 节点配置页。复杂度更高，部分能力可能受限。</p></article>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="package-row">
+        <div class="media-stack" data-anim="3">
+          <article class="tour-card accent">
+            <div class="tour-meta"><span>Plus 订阅</span><span>METHOD 01</span></div>
+            <h3>正规 Plus 充值</h3>
+            <figure class="tour-img contain"><img src="ppt-media/image3.png" alt="Plus 充值截图"></figure>
+            <div class="tour-foot"><span class="tour-url">https://pay.ldxp.cn/shop/binai</span><a class="mini-btn" href="https://pay.ldxp.cn/shop/binai" target="_blank" rel="noopener">优先推荐</a></div>
+          </article>
+          <article class="tour-card">
+            <div class="tour-meta"><span>移动支付</span><span>METHOD 01B</span></div>
+            <h3>Google / 手机支付</h3>
+            <figure class="tour-img contain"><img src="ppt-media/image4.png" alt="手机支付截图"></figure>
+            <div class="tour-foot"><span>补充路径</span><button class="mini-btn">看教程</button></div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-layout="S22" aria-label="购买国内 API 节点">
+    <header class="chrome"><div class="brand">起步与入口</div><div class="page-no">05 / 28</div></header>
+    <div class="section-shell">
+      <div class="head-split"><div class="head-copy"><div class="eyebrow" data-anim>API Access</div><h2 data-anim>购买国内 API <span class="underline">节点</span></h2></div></div>
+      <div class="api-reference" data-anim="3">
+        <div class="api-links">
+          <a class="api-url" href="https://www.aikeys.one/login" target="_blank" rel="noopener">https://www.aikeys.one/login</a>
+          <a class="api-url" href="https://yunwu.ai/console" target="_blank" rel="noopener">https://yunwu.ai/console</a>
+        </div>
+        <div class="api-site">
+          <figure class="api-shot"><img src="ppt-media/image6.png" alt="API 节点控制台截图"></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide chapter-opener" data-layout="chapter-opener" aria-label="章节开篇 基础配置">
+    <header class="chrome"><div class="brand">Chapter Divider</div><div class="page-no">06 / 28</div></header>
+    <div class="opener-shell">
+      <div class="opener-copy">
+        <div class="opener-kicker" data-anim>PART 02</div>
+        <h1 data-anim="2">基础配置</h1>
+        <p data-anim="3">从界面入口、代理变量、端口到项目化对话，把 Codex 调整成更稳定的工作状态。</p>
+        <div class="opener-mark" data-anim="4">SETUP FLOW</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide band image-dominant" data-layout="S16" aria-label="基础界面">
+    <header class="chrome"><div class="brand">基础配置</div><div class="page-no">07 / 28</div></header>
+    <div class="section-shell">
+      <div class="head-split"><div class="head-copy"><div class="eyebrow" data-anim>Interface Tour</div><h2 data-anim>基础设置 <span class="underline">界面认知</span></h2></div><div class="head-side"><p data-anim="2">功能栏、项目栏、对话记录这些核心区域，用四张固定截图做成入口导航区。</p><button class="section-cta" data-anim="3">UI Tour</button></div></div>
+      <div class="interface-shell" data-anim="3">
+        <div class="interface-main"><div class="interface-label"><div class="icon">A</div><h4>主界面</h4></div><figure class="gallery-card contain hero"><img src="ppt-media/image7.png" alt="主界面截图"></figure></div>
+        <div class="interface-side">
+          <div class="interface-side-top"><div class="interface-label"><div class="icon">B</div><h4>新对话</h4></div><figure class="gallery-card contain"><img src="ppt-media/image8.png" alt="新对话截图"></figure></div>
+          <div class="interface-side-bottom"><div><div class="interface-label"><div class="icon">C</div><h4>项目栏</h4></div><figure class="gallery-card contain"><img src="ppt-media/image9.png" alt="项目栏截图"></figure></div><div><div class="interface-label"><div class="icon">D</div><h4>记录入口</h4></div><figure class="gallery-card contain"><img src="ppt-media/image10.png" alt="记录入口截图"></figure></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-layout="S17" aria-label="代理环境变量">
+    <header class="chrome"><div class="brand">基础配置</div><div class="page-no">08 / 28</div></header>
+    <div class="section-shell">
+      <div class="head-split"><div class="head-copy"><div class="eyebrow" data-anim>Proxy Setup</div><h2 data-anim>安装后第一步 <span class="underline">设置</span></h2></div><div class="head-side"><p data-anim="2">原 PPT 的重点不是截图本身，而是 `.env` 里的四行代理变量。页面用命令说明加固定图片来承载。</p><button class="section-cta" data-anim="3">.env Setup</button></div></div>
+      <div class="proxy-layout" data-anim="3"><div class="proxy-top"><article class="proxy-panel"><div class="proxy-visual"><figure class="stack-img contain"><img src="ppt-media/image11.png" alt="代理设置截图 1"></figure></div></article><article class="proxy-panel"><div class="proxy-visual"><figure class="stack-img contain"><img src="ppt-media/image12.png" alt="代理设置截图 2"></figure></div></article></div><article class="proxy-bar"><div class="proxy-info code"><div class="eyebrow">.codex /.env</div><pre>HTTP_PROXY=http://127.0.0.1:7890
+HTTPS_PROXY=http://127.0.0.1:7890
+ALL_PROXY=http://127.0.0.1:7890
+NO_PROXY=localhost,127.0.0.1</pre></div><div class="proxy-note"><p>默认端口是 `7890`，如果你改过代理端口，只替换数字部分即可。</p><p>保存后重新进入项目或重开对话，代理通常就会正常生效。</p></div></article></div>
+    </div>
+  </section>
+
+  <section class="slide band" data-layout="S08" aria-label="自定义端口">
+    <header class="chrome"><div class="brand">基础配置</div><div class="page-no">09 / 28</div></header>
+    <div class="section-shell">
+      <div class="package-head"><div class="head-copy"><div class="eyebrow" data-anim>Port Variant</div><h2 data-anim="2">不同端口也能 <span class="underline">同样处理</span></h2></div><div class="package-side"><button class="section-cta" data-anim="4">Port Rule</button></div></div>
+      <div class="port-layout" data-anim="3"><div class="port-top"><figure class="tour-card port-panel"><div class="tour-meta"><span>端口提示</span><span>01</span></div><figure class="tour-img contain port-visual"><img src="ppt-media/image13.png" alt="端口提示截图"></figure></figure></div><article class="port-bar"><div><div class="eyebrow">port from dialogue</div><pre>$env:all_proxy=http://127.0.0.1:17891
+
+HTTP_PROXY=http://127.0.0.1:17891
+HTTPS_PROXY=http://127.0.0.1:17891
+ALL_PROXY=http://127.0.0.1:17891
+NO_PROXY=localhost,127.0.0.1</pre></div><div class="proxy-note"><p>端口号直接从你当前代理里抄出来，不需要手动猜。</p><p>只要把对话里出现的端口替换进这四行 `.env` 配置，其他写法保持不变，就能按同样方式处理。</p></div></article></div>
+    </div>
+  </section>
+
+  <section class="slide" data-layout="S19" aria-label="项目化对话">
+    <header class="chrome"><div class="brand">基础配置</div><div class="page-no">10 / 28</div></header>
+    <div class="section-shell"><div class="head-split"><div class="head-copy"><div class="eyebrow" data-anim>Project Threads</div><h2 data-anim>尽量在项目下 <span class="underline">对话</span></h2></div><div class="head-side"><p data-anim="2">长时间在同一个对话框里持续对话，容易出现思考很久的体感。更稳的做法是按项目开新线程。</p><button class="section-cta" data-anim="3">Project Mode</button></div></div><div class="gallery-shell" data-anim="3"><figure class="gallery-card contain"><img src="ppt-media/image12.png" alt="项目模式截图 1"><div class="cap">Long Thread</div></figure><div class="gallery-main"><article class="note-card"><h3>项目式工作流</h3><p>把文件夹拖进项目栏，再围绕这个项目开对话，能明显降低上下文混乱感。</p></article><figure class="gallery-card contain"><img src="ppt-media/image14.png" alt="项目模式截图 2"><div class="cap">Project Sidebar</div></figure></div></div></div>
+  </section>
+
+  <section class="slide chapter-opener" data-layout="chapter-opener" aria-label="章节开篇 权限与设置">
+    <header class="chrome"><div class="brand">Chapter Divider</div><div class="page-no">11 / 28</div></header>
+    <div class="opener-shell">
+      <div class="opener-copy">
+        <div class="opener-kicker" data-anim>PART 03</div>
+        <h1 data-anim="2">权限与设置</h1>
+        <p data-anim="3">把额度、设置入口、完全访问权限和控制能力梳理清楚，让真实项目能顺畅接入。</p>
+        <div class="opener-mark" data-anim="4">CONTROL LAYER</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide band" data-layout="S22" aria-label="套餐额度">
+    <header class="chrome"><div class="brand">权限与设置</div><div class="page-no">12 / 28</div></header>
+    <div class="section-shell"><div class="head-split"><div class="head-copy"><div class="eyebrow" data-anim>Quota View</div><h2 data-anim>基础功能 <span class="underline">套餐用量</span></h2></div><div class="head-side"><p data-anim="2">这一页只有一张固定图，所以直接做成中心主图页，旁边只保留最必要的额度解释。</p><button class="section-cta" data-anim="3">Quota View</button></div></div><div class="quota-layout" data-anim="3"><figure class="media-frame contain tall"><img src="ppt-media/image15.png" alt="套餐用量截图"></figure><article class="quota-copy"><strong>5 小时内额度</strong><p>5 小时内额度用完，就需要等下一轮刷新。 一周的额度通常按周维度重置。</p></article></div></div>
+  </section>
+
+  <section class="slide" data-layout="S16" aria-label="设置入口">
+    <header class="chrome"><div class="brand">权限与设置</div><div class="page-no">13 / 28</div></header>
+    <div class="section-shell"><div class="head-split"><div class="head-copy"><div class="eyebrow" data-anim>Settings Entry</div><h2 data-anim>从左下角进入 <span class="underline">设置界面</span></h2></div><div class="head-side"><p data-anim="2">一张是入口菜单，一张是设置页本体，用“入口到页面”的顺序排开。</p><button class="section-cta" data-anim="3">Settings</button></div></div><div class="media-stack settings-layout" data-anim="3"><article class="tour-card"><div class="tour-meta"><span>Step 01</span><span>Menu</span></div><h3>设置入口</h3><figure class="tour-img contain"><img src="ppt-media/image16.png" alt="设置入口截图"></figure></article><article class="tour-card accent"><div class="tour-meta"><span>Step 02</span><span>Page</span></div><h3>设置页面</h3><figure class="tour-img contain"><img src="ppt-media/image17.png" alt="设置页面截图"></figure></article></div></div>
+  </section>
+
+  <section class="slide band" data-layout="S15" aria-label="完全访问权限">
+    <header class="chrome"><div class="brand">权限与设置</div><div class="page-no">14 / 28</div></header>
+    <div class="section-shell"><div class="head-split"><div class="head-copy"><div class="eyebrow" data-anim>Full Access</div><h2 data-anim>常规权限 <span class="underline">全部打开</span></h2></div><div class="head-side"><p data-anim="2">这一页强调“完全访问权限”这件事本身，所以左右各保留一张固定图，中间不再塞复杂文案。</p><button class="section-cta" data-anim="3">Access</button></div></div><div class="media-stack access-layout" data-anim="3"><figure class="tour-card accent"><div class="tour-meta"><span>Permission</span><span>A</span></div><figure class="tour-img contain"><img src="ppt-media/image18.png" alt="权限截图 1"></figure></figure><figure class="tour-card"><div class="tour-meta"><span>Permission</span><span>B</span></div><figure class="tour-img contain"><img src="ppt-media/image19.png" alt="权限截图 2"></figure></figure></div></div>
+  </section>
+
+  <section class="slide" data-layout="S22" aria-label="功能开关">
+    <header class="chrome"><div class="brand">权限与设置</div><div class="page-no">15 / 28</div></header>
+    <div class="section-shell"><div class="head-split"><div class="head-copy"><div class="eyebrow" data-anim>Feature Toggles</div><h2 data-anim>基础设置 <span class="underline">打开</span></h2></div><div class="head-side"><p data-anim="2">单图信息页，保持大图占比，让听众一眼知道要打开的是哪一块。</p><button class="section-cta" data-anim="3">Toggle</button></div></div><div class="toggle-layout" data-anim="3"><figure class="media-frame contain tall"><img src="ppt-media/image20.png" alt="设置开关截图"></figure></div></div>
+  </section>
+
+  <section class="slide band" data-layout="S16" aria-label="电脑与浏览器控制">
+    <header class="chrome"><div class="brand">权限与设置</div><div class="page-no">16 / 28</div></header>
+    <div class="section-shell"><div class="head-split"><div class="head-copy"><div class="eyebrow" data-anim>Control Layer</div><h2 data-anim>电脑控制与浏览器控制 <span class="underline">全部打开</span></h2></div><div class="head-side"><p data-anim="2">这一页固定图更适合做双卡对照，直接把浏览器控制和电脑控制分成两个大块。</p><button class="section-cta" data-anim="3">Controls</button></div></div><div class="media-stack" data-anim="3"><article class="tour-card accent"><div class="tour-meta"><span>Browser</span><span>ON</span></div><h3>浏览器控制</h3><figure class="tour-img contain"><img src="ppt-media/image21.png" alt="浏览器控制截图"></figure></article><article class="tour-card"><div class="tour-meta"><span>Computer</span><span>ON</span></div><h3>电脑控制</h3><figure class="tour-img contain"><img src="ppt-media/image22.png" alt="电脑控制截图"></figure></article></div></div>
+  </section>
+
+  <section class="slide chapter-opener" data-layout="chapter-opener" aria-label="章节开篇 插件与远程">
+    <header class="chrome"><div class="brand">Chapter Divider</div><div class="page-no">17 / 28</div></header>
+    <div class="opener-shell">
+      <div class="opener-copy">
+        <div class="opener-kicker" data-anim>PART 04</div>
+        <h1 data-anim="2">插件与远程</h1>
+        <p data-anim="3">进入插件、技能商店、快捷调用和手机远程控制，把 Codex 扩展成可持续复用的工作流。</p>
+        <div class="opener-mark" data-anim="4">EXTEND SYSTEM</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide image-dominant" data-layout="S17" aria-label="插件与自动化">
+    <header class="chrome"><div class="brand">插件与远程</div><div class="page-no">18 / 28</div></header>
+    <div class="section-shell"><div class="head-split"><div class="head-copy"><div class="eyebrow" data-anim>Plugin Hub</div><h2 data-anim>插件和自动化 <span class="underline">功能入口</span></h2></div><div class="head-side"><p data-anim="2">主要插件就这几个，也可以自己创建技能或从网上安装。固定图用“入口页 + 插件卡片页”的组合来承接。</p><button class="section-cta" data-anim="3">View Plugins</button></div></div><div class="gallery-shell" data-anim="3"><figure class="gallery-card contain hero"><img src="ppt-media/image23.png" alt="插件入口截图"><div class="cap">Plugin Hub</div></figure><div class="gallery-main"><article class="note-card"><h3>主要插件</h3><p>浏览器、电脑控制、设计类技能和自动化功能，都是后续高阶工作流的关键入口。</p></article><figure class="gallery-card contain big"><img src="ppt-media/image24.png" alt="插件列表截图"><div class="cap">Installed Skills</div></figure></div></div></div>
+  </section>
+
+  <section class="slide band" data-layout="S19" aria-label="插件策略">
+    <header class="chrome"><div class="brand">插件与远程</div><div class="page-no">19 / 28</div></header>
+    <div class="section-shell"><div class="head-split"><div class="head-copy"><div class="eyebrow" data-anim>Plugin Strategy</div><h2 data-anim>插件、技能与自动化 <span class="underline">怎么选</span></h2></div><div class="head-side"><p data-anim="2">这一页不重复解释入口，而是用同一组固定图切换到使用策略：先装常用，再按任务加能力。</p><button class="section-cta" data-anim="3">Strategy</button></div></div><div class="strategy-media" data-anim="3"><figure class="stack-img contain"><img src="ppt-media/image23.png" alt="插件策略截图 1"></figure><figure class="stack-img contain"><img src="ppt-media/image24.png" alt="插件策略截图 2"></figure></div></div>
+  </section>
+
+  <section class="slide" data-layout="S22" aria-label="安装小红书技能商店">
+    <header class="chrome"><div class="brand">插件与远程</div><div class="page-no">20 / 28</div></header>
+    <div class="section-shell"><div class="head-split"><div class="head-copy"><div class="eyebrow" data-anim>RedSkill Store</div><h2 data-anim>安装小红书 <span class="underline">技能商店</span></h2></div><div class="head-side"><p data-anim="2">这一页保留“先检查是否安装商店”的提示，把桌面文件夹图和安装引导图组合成轻流程。</p><button class="section-cta" data-anim="3">Install Store</button></div></div><div class="package-row" data-anim="3"><div class="media-stack"><article class="tour-card accent"><div class="tour-meta"><span>Folder</span><span>01</span></div><h3>技能目录</h3><figure class="tour-img contain"><img src="ppt-media/image25.png" alt="技能目录截图"></figure></article><article class="tour-card"><div class="tour-meta"><span>Install</span><span>02</span></div><h3>安装商店</h3><figure class="tour-img contain"><img src="ppt-media/image26.png" alt="安装引导截图"></figure></article></div><article class="note-card"><h3>先检查，再安装</h3><p>按提示检查 Red Skill 商店是否已存在，再根据安装文档继续处理，不需要盲装。</p></article></div></div>
+  </section>
+
+  <section class="slide band image-dominant" data-layout="S15" aria-label="调出插件">
+    <header class="chrome"><div class="brand">插件与远程</div><div class="page-no">21 / 28</div></header>
+    <div class="section-shell"><div class="head-split"><div class="head-copy"><div class="eyebrow" data-anim>Plugin Shortcuts</div><h2 data-anim>@、$ 与快捷方式 <span class="underline">调出插件</span></h2></div><div class="head-side"><p data-anim="2">这一页有 3 张固定图，最适合做参考网站里的产品卡矩阵：一张讲入口，两张讲调用方式。</p><button class="section-cta" data-anim="3">Shortcuts</button></div></div><div class="gallery-grid three" data-anim="3"><figure class="gallery-card contain"><img src="ppt-media/image27.png" alt="插件调出截图 1"><div class="cap">@ plugin</div></figure><figure class="gallery-card contain"><img src="ppt-media/image28.png" alt="插件调出截图 2"><div class="cap">$ skill</div></figure><figure class="gallery-card contain"><img src="ppt-media/image29.png" alt="插件调出截图 3"><div class="cap">shortcut</div></figure></div></div>
+  </section>
+
+  <section class="slide" data-layout="S08" aria-label="手机远程控制">
+    <header class="chrome"><div class="brand">插件与远程</div><div class="page-no">22 / 28</div></header>
+    <div class="section-shell"><div class="head-split"><div class="head-copy"><div class="eyebrow" data-anim>Remote Control</div><h2 data-anim>电脑控制 <span class="underline">通过手机远程操作</span></h2></div><div class="head-side"><p data-anim="2">一张桌面端，一张手机端，让这个功能更像参考网站里的配套入口展示页。</p><button class="section-cta" data-anim="3">Remote Mode</button></div></div><div class="media-stack" data-anim="3"><article class="tour-card accent"><div class="tour-meta"><span>Desktop</span><span>PC</span></div><h3>桌面端入口</h3><figure class="tour-img contain"><img src="ppt-media/image30.png" alt="手机控制桌面截图"></figure></article><article class="tour-card"><div class="tour-meta"><span>Phone</span><span>MOBILE</span></div><h3>手机端联动</h3><figure class="tour-img contain"><img src="ppt-media/image31.png" alt="手机端联动截图"></figure></article></div></div>
+  </section>
+
+  <section class="slide chapter-opener" data-layout="chapter-opener" aria-label="章节开篇 实际操作">
+    <header class="chrome"><div class="brand">Chapter Divider</div><div class="page-no">23 / 28</div></header>
+    <div class="opener-shell">
+      <div class="opener-copy">
+        <div class="opener-kicker" data-anim>PART 05</div>
+        <h1 data-anim="2">实际操作</h1>
+        <p data-anim="3">前面的安装、配置、权限和插件都只是准备动作，真正让 Codex 发挥价值，还是把真实任务、真实素材和真实目标一起交给它处理。</p>
+        <div class="opener-mark" data-anim="4">REAL WORKFLOW</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide band" data-layout="S19" aria-label="实操技能与插件">
+    <header class="chrome"><div class="brand">实际操作</div><div class="page-no">24 / 28</div></header>
+    <div class="section-shell">
+      <div class="head-split"><div class="head-copy"><div class="eyebrow" data-anim>Practice Setup</div><h2 data-anim="2">本次演示会用到的 <span class="underline">技能和插件</span></h2></div><div class="head-side"><p data-anim="3">先把技能库和控制插件准备好，后面演示就不是单纯聊天，而是让 Codex 直接接管真实素材、浏览器和本地文件。</p><button class="section-cta" data-anim="4">Demo Stack</button></div></div>
+      <div class="practice-layout" data-anim="3">
+        <article class="skill-table-card">
+          <div class="skill-table-head"><h3>当前个人 skills 目录里存在的技能</h3><p>重点会用到生图、主图、详情页、技能商店和字体设计这些能力。绿色标记的是这次演示更可能直接调用的部分。</p></div>
+          <table class="skill-table" aria-label="实操会用到的技能列表">
+            <thead><tr><th>技能目录名</th><th>用途描述</th></tr></thead>
+            <tbody>
+              <tr><td>api-image-generation</td><td>通过 OpenAI-compatible 中转 API 生成图片</td></tr>
+              <tr class="is-key"><td>doubao-api</td><td>调用火山方舟 / 豆包 Seedream API 生成并保存本地图片</td></tr>
+              <tr><td>ecommerce-main-image-prompts</td><td>写、改、诊断电商主图和参考图提示词</td></tr>
+              <tr class="is-key"><td>find-redskills</td><td>小红书 RedSkill 商店搜索技能和安装入口</td></tr>
+              <tr><td>generate-detail-page</td><td>生成 10 屏电商详情页 AI 图片提示词</td></tr>
+              <tr class="is-key"><td>gpt-image-2-style-library</td><td>GPT-Image2 风格库与工业提示词模板</td></tr>
+              <tr class="is-key"><td>gpt-main-image-generation</td><td>电商主图完整工作流：需求分析、提示词、生成和迭代</td></tr>
+              <tr class="is-key"><td>sxtex</td><td>中文手写标题字体设计生成</td></tr>
+              <tr><td>web-design-engineer</td><td>高质量 HTML / CSS / React 视觉网页文件</td></tr>
+            </tbody>
+          </table>
+        </article>
+        <div class="practice-side">
+          <article class="practice-note"><h3>使用到插件</h3><p><code>\\渲染a组金宏文\渲染A组金宏文\金宏文\codex插件</code></p></article>
+          <article class="practice-shot"><div class="tour-meta"><span>Computer Use</span><span>PLUGIN</span></div><h3>电脑操控要提前打开</h3><figure class="tour-img contain"><img src="ppt-media/image21.png" alt="电脑操控插件设置截图"></figure></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-layout="S16" aria-label="电脑控制实操">
+    <header class="chrome"><div class="brand">实际操作</div><div class="page-no">25 / 28</div></header>
+    <div class="section-shell">
+      <div class="head-split"><div class="head-copy"><div class="eyebrow" data-anim>Computer Control</div><h2 data-anim="2">电脑控制 <span class="underline">打开 C4D</span></h2></div><div class="head-side"><p data-anim="3">这一页演示的是让 Codex 直接控制桌面应用：从一句需求开始，调出电脑控制工具，打开 C4D 并继续推进真实软件里的任务。</p><button class="section-cta" data-anim="4">Control Demo</button></div></div>
+      <div class="operate-layout" data-anim="3">
+        <article class="tour-card accent"><div class="tour-meta"><span>Prompt</span><span>01</span></div><h3>一句话说明目标</h3><p>先告诉 Codex 要打开桌面的 C4D，并做一个简单的三阶魔方动画。关键是把目标讲清楚，而不是自己一步步点。</p><figure class="tour-img contain"><img src="ppt-media/ppt-slide20-1.png" alt="电脑控制对话结果截图"></figure></article>
+        <article class="tour-card dark"><div class="tour-meta"><span>Desktop</span><span>02</span></div><h3>让它进入真实桌面</h3><p>电脑控制打开后，Codex 可以识别桌面、应用窗口和按钮，再继续执行打开软件、运行脚本、检查结果这些动作。</p><figure class="tour-img contain"><video src="ppt-media/computer-control-demo.webm" autoplay muted loop playsinline controls preload="metadata" aria-label="电脑控制桌面操作演示视频"></video></figure></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide band" data-layout="S16" aria-label="生成主图技能实操">
+    <header class="chrome"><div class="brand">实际操作</div><div class="page-no">26 / 28</div></header>
+    <div class="section-shell">
+      <div class="head-split"><div class="head-copy"><div class="eyebrow" data-anim>Main Image Skill</div><h2 data-anim="2">使用生成主图技能 <span class="underline">全自动流程</span></h2></div><div class="head-side"><p data-anim="3">把需求文档和产品图交给技能后，Codex 会完成提示词、生成、保存和结果检查。我们只需要下好需求，再看最终产物是否符合目标。</p><button class="section-cta" data-anim="4">AIGC Flow</button></div></div>
+      <div class="main-skill-layout" data-anim="3">
+        <article class="tour-card"><div class="tour-meta"><span>Request</span><span>01</span></div><h3>下好需求即可自动执行</h3><p>示例里直接调用生成主图技能，根据表格和文件夹里的产品图生成主图，并把最终文件保存到本地目录。</p><figure class="tour-img contain"><img src="ppt-media/ppt-slide21-1.png" alt="生成主图技能执行结果截图"></figure></article>
+        <article class="tour-card"><div class="tour-meta"><span>Result</span><span>02</span></div><h3>输出可检查的最终图</h3><p>生成完成后会给出预览和文件路径。主图、提示词和无文字版本都可以继续作为下一轮修改的基础。</p><figure class="tour-img contain"><img src="ppt-media/ppt-slide21-2.png" alt="生成主图预览截图"></figure></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-layout="S17" aria-label="主图生成结果">
+    <header class="chrome"><div class="brand">实际操作</div><div class="page-no">27 / 28</div></header>
+    <div class="section-shell">
+      <div class="head-split"><div class="head-copy"><div class="eyebrow" data-anim>Result Check</div><h2 data-anim="2">插件实测三张主图 <span class="underline">16 分钟</span></h2></div><div class="head-side"><p data-anim="3">这一页展示真实跑完后的结果：技能通过浏览器工作流生成 3 张主图，并保存提示词、图片链接和本地文件。</p><button class="section-cta" data-anim="4">15% Token</button></div></div>
+      <div class="main-skill-result" data-anim="3">
+        <article class="metric-card"><div class="eyebrow">Main Image Result</div><strong>16min</strong><p>插件实测三张主图约 16 分钟完成，消耗约 5 小时额度的 15% token。适合把重复的主图产出流程交给 Codex 执行。</p><div class="result-list"><span><b>生成数量</b><em>3 张主图</em></span><span><b>输出文件</b><em>PNG + prompts.md</em></span><span><b>验证尺寸</b><em>1254 x 1254</em></span></div></article>
+        <article class="result-preview"><div class="tour-meta"><span>Preview</span><span>Generated Main Images</span></div><figure class="tour-img contain"><img src="ppt-media/ppt-slide22-2.png" alt="生成主图三张预览截图"></figure></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide soft" data-layout="S10" aria-label="结束语">
+    <header class="chrome"><div class="brand">实际操作</div><div class="page-no">28 / 28</div></header>
+    <div class="closing-shell"><div class="closing-call"><div class="eyebrow" data-anim>Takeaway</div><h1 data-anim="2">Codex 有很多<br><span class="underline">意想不到的</span><br>使用方法</h1><p data-anim="3">把它当成项目搭子，而不是一次性问答工具。你越愿意把真实工作丢进去，它越容易变成真正的生产力。</p></div></div>
+  </section>
+</main>
+
+<div class="dock" aria-label="slide navigation"></div>
+<div class="hint">← → 翻页 · 滚轮切换 · 第 2 页卡片可点击</div>
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <div class="lightbox-frame">
+    <img id="lightboxImage" alt="">
+  </div>
+</div>
+
+<script>
+  const deck=document.getElementById('deck');
+  const slides=[...document.querySelectorAll('.slide')];
+  const dock=document.querySelector('.dock');
+  const lightbox=document.getElementById('lightbox');
+  const lightboxImage=document.getElementById('lightboxImage');
+  let lightboxZoom=1;
+  let index=0;
+  deck.style.width=`${slides.length*100}vw`;
+  slides.forEach((_,i)=>{
+    const b=document.createElement('button');
+    b.className='dot';
+    b.ariaLabel=`Slide ${i+1}`;
+    b.onclick=()=>go(i);
+    dock.appendChild(b);
+  });
+  function go(i){
+    index=Math.max(0,Math.min(slides.length-1,i));
+    deck.style.transform=`translateX(${-index*100}vw)`;
+    slides.forEach((s,n)=>s.classList.toggle('is-active',n===index));
+    document.querySelectorAll('.dot').forEach((d,n)=>d.classList.toggle('active',n===index));
+  }
+  document.querySelectorAll('.activity').forEach(card=>{
+    card.addEventListener('click',()=>{
+      document.querySelectorAll('.activity').forEach(x=>x.classList.remove('active'));
+      card.classList.add('active');
+    });
+  });
+  function closeLightbox(){
+    lightbox.classList.remove('is-open');
+    lightbox.setAttribute('aria-hidden','true');
+    lightboxImage.removeAttribute('src');
+    lightboxImage.alt='';
+    setLightboxZoom(1);
+  }
+  function setLightboxZoom(value){
+    lightboxZoom=Math.max(.5,Math.min(4,value));
+    lightboxImage.style.setProperty('--zoom',lightboxZoom.toFixed(2));
+    lightboxImage.classList.toggle('is-zoomed',lightboxZoom>1.01);
+  }
+  function openLightbox(img){
+    setLightboxZoom(1);
+    lightboxImage.src=img.currentSrc||img.src;
+    lightboxImage.alt=img.alt||'放大预览';
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden','false');
+  }
+  document.querySelectorAll('.slide img').forEach(img=>{
+    img.addEventListener('click',e=>{
+      e.stopPropagation();
+      openLightbox(img);
+    });
+  });
+  lightbox.addEventListener('click',e=>{
+    if(e.target!==lightboxImage) closeLightbox();
+  });
+  lightboxImage.addEventListener('wheel',e=>{
+    if(!lightbox.classList.contains('is-open')) return;
+    e.preventDefault();
+    const step=e.deltaY>0?.9:1.1;
+    setLightboxZoom(lightboxZoom*step);
+  },{passive:false});
+  addEventListener('keydown',e=>{
+    if(lightbox.classList.contains('is-open')){
+      if(e.key==='Escape') closeLightbox();
+      return;
+    }
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown') go(index+1);
+    if(e.key==='ArrowLeft'||e.key==='PageUp') go(index-1);
+    if(e.key==='Home') go(0);
+    if(e.key==='End') go(slides.length-1);
+  });
+  let wheelLock=0;
+  addEventListener('wheel',e=>{
+    if(lightbox.classList.contains('is-open')) return;
+    const now=Date.now();
+    if(Math.abs(e.deltaY)>38 && now-wheelLock>560){
+      go(index+(e.deltaY>0?1:-1));
+      wheelLock=now;
+    }
+  },{passive:true});
+  go(0);
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
