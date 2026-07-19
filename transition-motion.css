@@ -1,0 +1,276 @@
+:root {
+  --motion-reference-ease: cubic-bezier(.16, 1, .3, 1);
+  --motion-reference-soft: cubic-bezier(.22, 1, .36, 1);
+}
+
+.motion-page-veil {
+  position: fixed;
+  inset: -10vh -8vw;
+  z-index: 120;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(ellipse at 50% 46%, rgb(255 255 255 / .24), transparent 28%),
+    radial-gradient(ellipse at 52% 88%, rgb(156 255 63 / .16), transparent 22%),
+    linear-gradient(180deg, rgb(244 243 237 / .92), rgb(244 243 237 / .18) 42%, transparent 68%);
+  filter: blur(26px);
+  mix-blend-mode: screen;
+  transform: translate3d(0, 32px, 0) scale(1.08);
+  will-change: opacity, transform, filter;
+}
+
+body.motion-start .motion-page-veil {
+  animation: referenceVeilOpen 1550ms var(--motion-reference-ease) both;
+}
+
+body.motion-jump .motion-page-veil {
+  animation: referenceVeilPulse 720ms var(--motion-reference-ease) both;
+}
+
+body.motion-enhanced .site-header {
+  animation: referenceHeaderIn 950ms var(--motion-reference-ease) 120ms both;
+}
+
+body.motion-enhanced .hero-profile .eyebrow,
+body.motion-enhanced .hero-profile h1 span,
+body.motion-enhanced .hero-profile h1 strong,
+body.motion-enhanced .hero-profile p {
+  display: block;
+  animation: referenceTextLift 1180ms var(--motion-reference-ease) both;
+}
+
+body.motion-enhanced .hero-profile .eyebrow {
+  animation-delay: 260ms;
+}
+
+body.motion-enhanced .hero-profile h1 span {
+  animation-delay: 360ms;
+}
+
+body.motion-enhanced .hero-profile h1 strong {
+  animation-delay: 455ms;
+}
+
+body.motion-enhanced .hero-profile p {
+  animation-delay: 610ms;
+}
+
+body.motion-enhanced .hero-profile h1 em {
+  animation: referenceInkIn 1120ms var(--motion-reference-ease) 720ms both;
+}
+
+body.motion-enhanced .hero[data-hero-carousel] .hero-track {
+  animation: referenceRailReveal 1380ms var(--motion-reference-ease) 520ms both;
+}
+
+body.motion-enhanced .hero[data-hero-carousel] .hero-tile {
+  animation: referenceTileFocus 1260ms var(--motion-reference-soft) both;
+  animation-delay: calc(var(--delay, 0ms) + 660ms);
+}
+
+body.motion-enhanced .motion-scene {
+  position: relative;
+  isolation: isolate;
+}
+
+body.motion-enhanced .motion-scene::before {
+  content: "";
+  position: absolute;
+  inset: -2px 0;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    linear-gradient(180deg, transparent, rgb(255 255 255 / .12) 42%, transparent 78%),
+    radial-gradient(ellipse at 50% 20%, rgb(255 255 255 / .1), transparent 36%);
+  filter: blur(20px);
+  transform: translate3d(0, 42px, 0) scaleY(.96);
+  mix-blend-mode: screen;
+}
+
+body.motion-enhanced .motion-scene.is-motion-visible::before {
+  animation: referenceSceneSweep 1250ms var(--motion-reference-ease) both;
+}
+
+body.motion-enhanced .motion-child {
+  opacity: 0;
+  clip-path: inset(0 0 22% 0 round 1px);
+  filter: blur(12px) saturate(.92);
+  transform: translate3d(0, 46px, 0) scale(.982);
+  transition:
+    opacity 760ms var(--motion-reference-soft),
+    transform 1120ms var(--motion-reference-ease),
+    filter 1120ms var(--motion-reference-ease),
+    clip-path 1120ms var(--motion-reference-ease);
+  transition-delay: var(--motion-delay, 0ms);
+  will-change: opacity, transform, filter, clip-path;
+}
+
+body.motion-enhanced .motion-scene.is-motion-visible .motion-child {
+  opacity: 1;
+  clip-path: inset(0 0 0 0 round 1px);
+  filter: blur(0) saturate(1);
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+body.motion-enhanced .poster-card,
+body.motion-enhanced .detail-card,
+body.motion-enhanced #recent-work .strip-card,
+body.motion-enhanced .selected-work-card {
+  transition:
+    transform .62s var(--motion-reference-ease),
+    filter .62s var(--motion-reference-ease),
+    box-shadow .62s var(--motion-reference-ease),
+    border-color .42s ease;
+}
+
+body.motion-enhanced .poster-card:hover,
+body.motion-enhanced .poster-card:focus-visible,
+body.motion-enhanced .detail-card:hover,
+body.motion-enhanced .detail-card:focus-visible,
+body.motion-enhanced #recent-work .strip-card:hover,
+body.motion-enhanced #recent-work .strip-card:focus-visible {
+  filter: saturate(1.08) brightness(1.04);
+  transform: translate3d(0, -8px, 0) scale(1.018);
+}
+
+@keyframes referenceVeilOpen {
+  0% {
+    opacity: .86;
+    filter: blur(6px);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  48% {
+    opacity: .42;
+  }
+  100% {
+    opacity: 0;
+    filter: blur(34px);
+    transform: translate3d(0, -8vh, 0) scale(1.16);
+  }
+}
+
+@keyframes referenceVeilPulse {
+  0% {
+    opacity: 0;
+    filter: blur(28px);
+    transform: translate3d(0, 34px, 0) scale(1.04);
+  }
+  36% {
+    opacity: .46;
+    filter: blur(12px);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(36px);
+    transform: translate3d(0, -28px, 0) scale(1.12);
+  }
+}
+
+@keyframes referenceHeaderIn {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translate3d(0, -18px, 0);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes referenceTextLift {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 105% 0);
+    filter: blur(12px);
+    transform: translate3d(0, 34px, 0) scale(.985);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    filter: blur(0);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes referenceInkIn {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes referenceRailReveal {
+  from {
+    opacity: 0;
+    clip-path: inset(18% 8% 36% 8% round 34px);
+    filter: blur(18px) saturate(.8);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0 round 0);
+    filter: blur(0) saturate(1);
+  }
+}
+
+@keyframes referenceTileFocus {
+  0% {
+    opacity: 0;
+    filter: blur(12px) saturate(.7) brightness(1.16);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0) saturate(1.1) brightness(1.08);
+  }
+}
+
+@keyframes referenceSceneSweep {
+  0% {
+    opacity: 0;
+    filter: blur(26px);
+    transform: translate3d(0, 54px, 0) scaleY(.92);
+  }
+  34% {
+    opacity: .72;
+  }
+  100% {
+    opacity: 0;
+    filter: blur(34px);
+    transform: translate3d(0, -42px, 0) scaleY(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-page-veil,
+  body.motion-enhanced .motion-scene::before {
+    display: none;
+  }
+
+  body.motion-enhanced .site-header,
+  body.motion-enhanced .hero-profile .eyebrow,
+  body.motion-enhanced .hero-profile h1 span,
+  body.motion-enhanced .hero-profile h1 strong,
+  body.motion-enhanced .hero-profile h1 em,
+  body.motion-enhanced .hero-profile p,
+  body.motion-enhanced .hero[data-hero-carousel] .hero-track,
+  body.motion-enhanced .hero[data-hero-carousel] .hero-tile {
+    animation: none;
+  }
+
+  body.motion-enhanced .motion-child {
+    opacity: 1;
+    clip-path: none;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+}
